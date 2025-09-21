@@ -14,13 +14,13 @@ const PropertyDetailsPage = () => {
 
   if (!property) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Property Not Found</h1>
+          <h1 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">Property Not Found</h1>
           <p className="text-gray-600 mb-6">The property you're looking for doesn't exist.</p>
           <Link 
             to="/properties" 
-            className="bg-amber-600 text-white px-6 py-3 rounded-lg hover:bg-amber-700 transition-colors"
+            className="bg-amber-600 text-white px-4 py-2 md:px-6 md:py-3 rounded-lg hover:bg-amber-700 transition-colors"
           >
             Back to Properties
           </Link>
@@ -29,7 +29,6 @@ const PropertyDetailsPage = () => {
     );
   }
 
-  // Mock images for the property (in real app, these would come from the property data)
   const propertyImages = [
     property.image,
     "https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
@@ -40,11 +39,11 @@ const PropertyDetailsPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Back Button */}
-      <div className="bg-white shadow-sm border-b sticky top-16 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div className="bg-white shadow-sm border-b sticky top-14 md:top-16 z-40">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 md:py-4">
           <Link 
             to="/properties"
-            className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors"
+            className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors text-sm md:text-base"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Properties
@@ -52,47 +51,47 @@ const PropertyDetailsPage = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2">
             {/* Property Images */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-6 md:mb-8">
               <div className="relative">
                 <img 
                   src={propertyImages[activeImage]} 
                   alt={property.name}
-                  className="w-full h-96 object-cover"
+                  className="w-full h-64 md:h-96 object-cover"
                 />
-                <div className="absolute top-4 left-4 flex space-x-2">
+                <div className="absolute top-3 left-3 flex space-x-2">
                   {property.featured && (
-                    <span className="bg-amber-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+                    <span className="bg-amber-600 text-white px-2 py-0.5 md:px-3 md:py-1 rounded-full text-xs md:text-sm font-medium">
                       Featured
                     </span>
                   )}
                   {property.verified && (
-                    <span className="bg-green-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+                    <span className="bg-green-600 text-white px-2 py-0.5 md:px-3 md:py-1 rounded-full text-xs md:text-sm font-medium">
                       Verified
                     </span>
                   )}
                 </div>
-                <div className="absolute top-4 right-4 flex space-x-2">
-                  <button className="bg-white bg-opacity-80 p-2 rounded-full hover:bg-opacity-100 transition-all">
+                <div className="absolute top-3 right-3 flex space-x-2">
+                  <button className="bg-white bg-opacity-80 p-1.5 md:p-2 rounded-full hover:bg-opacity-100 transition-all">
                     <Heart className="h-4 w-4 text-gray-600" />
                   </button>
-                  <button className="bg-white bg-opacity-80 p-2 rounded-full hover:bg-opacity-100 transition-all">
+                  <button className="bg-white bg-opacity-80 p-1.5 md:p-2 rounded-full hover:bg-opacity-100 transition-all">
                     <Share2 className="h-4 w-4 text-gray-600" />
                   </button>
                 </div>
               </div>
               
-              {/* Thumbnail Images */}
-              <div className="p-4 flex space-x-2 overflow-x-auto">
+              {/* Thumbnails */}
+              <div className="p-3 md:p-4 flex space-x-2 overflow-x-auto">
                 {propertyImages.map((image, index) => (
                   <button
                     key={index}
                     onClick={() => setActiveImage(index)}
-                    className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 ${
+                    className={`flex-shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-lg overflow-hidden border-2 ${
                       activeImage === index ? 'border-amber-600' : 'border-gray-200'
                     }`}
                   >
@@ -107,65 +106,66 @@ const PropertyDetailsPage = () => {
             </div>
 
             {/* Property Details */}
-            <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
-              <div className="flex items-start justify-between mb-6">
+            <div className="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-6 md:mb-8">
+              <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-6 space-y-4 md:space-y-0">
                 <div>
-                  <h1 className="text-3xl font-bold text-gray-900 mb-2">{property.name}</h1>
-                  <div className="flex items-center text-gray-600 mb-2">
-                    <MapPin className="h-5 w-5 mr-2" />
+                  <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">{property.name}</h1>
+                  <div className="flex items-center text-gray-600 mb-1 text-sm md:text-base">
+                    <MapPin className="h-4 w-4 md:h-5 md:w-5 mr-2" />
                     <span>{property.location}</span>
                   </div>
-                  <div className="flex items-center text-gray-600 mb-2">
-                    <Building2 className="h-5 w-5 mr-2" />
+                  <div className="flex items-center text-gray-600 mb-1 text-sm md:text-base">
+                    <Building2 className="h-4 w-4 md:h-5 md:w-5 mr-2" />
                     <span>{property.developer}</span>
                   </div>
-                  <div className="flex items-center text-gray-600">
-                    <Calendar className="h-5 w-5 mr-2" />
+                  <div className="flex items-center text-gray-600 text-sm md:text-base">
+                    <Calendar className="h-4 w-4 md:h-5 md:w-5 mr-2" />
                     <span>Possession: {property.possession}</span>
                   </div>
                 </div>
-                <div className="text-right">
-                  <div className="text-3xl font-bold text-amber-600 mb-2">{property.price}</div>
-                  <div className="text-sm text-gray-500">{property.status}</div>
+                <div className="text-left md:text-right">
+                  <div className="text-2xl md:text-3xl font-bold text-amber-600 mb-1">{property.price}</div>
+                  <div className="text-xs md:text-sm text-gray-500">{property.status}</div>
                 </div>
               </div>
 
-              <div className="border-t border-gray-200 pt-6 mb-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Property Overview</h3>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div className="text-center p-4 bg-gray-50 rounded-lg">
-                    <div className="text-2xl font-bold text-gray-900">{property.size}</div>
-                    <div className="text-sm text-gray-600">Total Area</div>
+              {/* Overview */}
+              <div className="border-t border-gray-200 pt-4 md:pt-6 mb-6">
+                <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-3 md:mb-4">Property Overview</h3>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4">
+                  <div className="text-center p-3 md:p-4 bg-gray-50 rounded-lg">
+                    <div className="text-lg md:text-2xl font-bold text-gray-900">{property.size}</div>
+                    <div className="text-xs md:text-sm text-gray-600">Total Area</div>
                   </div>
                   {property.carpetArea && (
-                    <div className="text-center p-4 bg-gray-50 rounded-lg">
-                      <div className="text-2xl font-bold text-gray-900">{property.carpetArea}</div>
-                      <div className="text-sm text-gray-600">Carpet Area</div>
+                    <div className="text-center p-3 md:p-4 bg-gray-50 rounded-lg">
+                      <div className="text-lg md:text-2xl font-bold text-gray-900">{property.carpetArea}</div>
+                      <div className="text-xs md:text-sm text-gray-600">Carpet Area</div>
                     </div>
                   )}
                   {property.superArea && (
-                    <div className="text-center p-4 bg-gray-50 rounded-lg">
-                      <div className="text-2xl font-bold text-gray-900">{property.superArea}</div>
-                      <div className="text-sm text-gray-600">Super Area</div>
+                    <div className="text-center p-3 md:p-4 bg-gray-50 rounded-lg">
+                      <div className="text-lg md:text-2xl font-bold text-gray-900">{property.superArea}</div>
+                      <div className="text-xs md:text-sm text-gray-600">Super Area</div>
                     </div>
                   )}
-                  <div className="text-center p-4 bg-gray-50 rounded-lg">
-                    <div className="text-2xl font-bold text-gray-900">{property.type}</div>
-                    <div className="text-sm text-gray-600">Property Type</div>
+                  <div className="text-center p-3 md:p-4 bg-gray-50 rounded-lg">
+                    <div className="text-lg md:text-2xl font-bold text-gray-900">{property.type}</div>
+                    <div className="text-xs md:text-sm text-gray-600">Property Type</div>
                   </div>
                 </div>
               </div>
 
               {/* Configurations */}
               {property.configurations && property.configurations.length > 0 && (
-                <div className="border-t border-gray-200 pt-6 mb-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-4">Available Configurations</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="border-t border-gray-200 pt-4 md:pt-6 mb-6">
+                  <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-3 md:mb-4">Available Configurations</h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
                     {property.configurations.map((config, index) => (
-                      <div key={index} className="bg-gray-50 p-4 rounded-lg">
-                        <div className="font-semibold text-gray-900 mb-2">{config.type}</div>
-                        <div className="text-sm text-gray-600 mb-2">Size: {config.size}</div>
-                        <div className="text-lg font-bold text-amber-600">{config.price}</div>
+                      <div key={index} className="bg-gray-50 p-3 md:p-4 rounded-lg">
+                        <div className="font-semibold text-gray-900 mb-1">{config.type}</div>
+                        <div className="text-xs md:text-sm text-gray-600 mb-1">Size: {config.size}</div>
+                        <div className="text-base md:text-lg font-bold text-amber-600">{config.price}</div>
                       </div>
                     ))}
                   </div>
@@ -173,20 +173,20 @@ const PropertyDetailsPage = () => {
               )}
 
               {/* Description */}
-              <div className="border-t border-gray-200 pt-6 mb-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Description</h3>
-                <p className="text-gray-600 leading-relaxed">{property.description}</p>
+              <div className="border-t border-gray-200 pt-4 md:pt-6 mb-6">
+                <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-3 md:mb-4">Description</h3>
+                <p className="text-sm md:text-base text-gray-600 leading-relaxed">{property.description}</p>
               </div>
 
               {/* Amenities */}
               {property.amenities && property.amenities.length > 0 && (
-                <div className="border-t border-gray-200 pt-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-4">Amenities</h3>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                <div className="border-t border-gray-200 pt-4 md:pt-6">
+                  <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-3 md:mb-4">Amenities</h3>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 md:gap-3">
                     {property.amenities.map((amenity, index) => (
                       <div key={index} className="flex items-center space-x-2">
-                        <Star className="h-4 w-4 text-amber-600" />
-                        <span className="text-gray-600">{amenity}</span>
+                        <Star className="h-3 w-3 md:h-4 md:w-4 text-amber-600" />
+                        <span className="text-xs md:text-sm text-gray-600">{amenity}</span>
                       </div>
                     ))}
                   </div>
@@ -197,38 +197,39 @@ const PropertyDetailsPage = () => {
 
           {/* Sidebar */}
           <div className="lg:col-span-1">
-            {/* Contact Form */}
-            <div className="bg-white rounded-xl shadow-lg p-6 mb-6 sticky top-32">
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Interested in this property?</h3>
-              <p className="text-gray-600 mb-6">Get in touch with us for more details and pricing information.</p>
+            <div className="bg-white rounded-xl shadow-lg p-5 md:p-6 mb-6 lg:sticky lg:top-32">
+              <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-3 md:mb-4">Interested in this property?</h3>
+              <p className="text-sm md:text-base text-gray-600 mb-5 md:mb-6">
+                Get in touch with us for more details and pricing information.
+              </p>
               
               <button
                 onClick={() => setShowPopup(true)}
-                className="w-full bg-amber-600 text-white py-3 rounded-lg hover:bg-amber-700 transition-colors mb-4"
+                className="w-full bg-amber-600 text-white py-2.5 md:py-3 rounded-lg hover:bg-amber-700 transition-colors mb-3 md:mb-4 text-sm md:text-base"
               >
                 Get Quote
               </button>
               
-              <button className="w-full bg-gray-900 text-white py-3 rounded-lg hover:bg-gray-800 transition-colors mb-4">
+              <button className="w-full bg-gray-900 text-white py-2.5 md:py-3 rounded-lg hover:bg-gray-800 transition-colors mb-3 md:mb-4 text-sm md:text-base">
                 Schedule Site Visit
               </button>
 
-              <div className="border-t border-gray-200 pt-4">
-                <div className="flex items-center space-x-3 mb-3">
-                  <Phone className="h-5 w-5 text-amber-600" />
-                  <span className="text-gray-600">+91 98765 43210</span>
+              <div className="border-t border-gray-200 pt-3 md:pt-4">
+                <div className="flex items-center space-x-2 md:space-x-3 mb-2 md:mb-3">
+                  <Phone className="h-4 w-4 md:h-5 md:w-5 text-amber-600" />
+                  <span className="text-sm md:text-base text-gray-600">+91 98765 43210</span>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <Mail className="h-5 w-5 text-amber-600" />
-                  <span className="text-gray-600">info@sadguruestate.com</span>
+                <div className="flex items-center space-x-2 md:space-x-3">
+                  <Mail className="h-4 w-4 md:h-5 md:w-5 text-amber-600" />
+                  <span className="text-sm md:text-base text-gray-600">info@sadguruestate.com</span>
                 </div>
               </div>
             </div>
 
             {/* Similar Properties */}
-            <div className="bg-white rounded-xl shadow-lg p-6">
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Similar Properties</h3>
-              <div className="space-y-4">
+            <div className="bg-white rounded-xl shadow-lg p-5 md:p-6">
+              <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-3 md:mb-4">Similar Properties</h3>
+              <div className="space-y-3 md:space-y-4">
                 {properties
                   .filter(p => p.location === property.location && p.id !== property.id)
                   .slice(0, 3)
@@ -238,18 +239,18 @@ const PropertyDetailsPage = () => {
                       to={`/property/${similarProperty.id}`}
                       className="block group"
                     >
-                      <div className="flex space-x-3">
+                      <div className="flex space-x-2 md:space-x-3">
                         <img 
                           src={similarProperty.image} 
                           alt={similarProperty.name}
-                          className="w-16 h-16 object-cover rounded-lg"
+                          className="w-14 h-14 md:w-16 md:h-16 object-cover rounded-lg"
                         />
                         <div className="flex-1">
-                          <h4 className="font-semibold text-gray-900 group-hover:text-amber-600 transition-colors">
+                          <h4 className="font-semibold text-gray-900 group-hover:text-amber-600 transition-colors text-sm md:text-base">
                             {similarProperty.name}
                           </h4>
-                          <p className="text-sm text-gray-600">{similarProperty.location}</p>
-                          <p className="text-sm font-semibold text-amber-600">{similarProperty.price}</p>
+                          <p className="text-xs md:text-sm text-gray-600">{similarProperty.location}</p>
+                          <p className="text-sm md:text-base font-semibold text-amber-600">{similarProperty.price}</p>
                         </div>
                       </div>
                     </Link>

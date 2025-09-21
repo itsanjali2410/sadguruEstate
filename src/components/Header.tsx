@@ -13,13 +13,17 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <div className="flex-shrink-0">
-            <img 
-              src="/Sadguru_Estate_logo.jpg" 
-              alt="Sadguru Estate" 
-              className="h-12 w-auto"
-            />
-          </div>
+          <div className="flex items-center space-x-3">
+  <div className="flex-shrink-0">
+    <img 
+      src="/Sadguru_Estate_logo.jpg" 
+      alt="Sadguru Estate" 
+      className="h-12 w-auto"
+    />
+  </div>
+  <span className="text-xl font-semibold text-blue-800">Sadguru Estate</span>
+</div>
+
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8">

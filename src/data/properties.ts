@@ -27,7 +27,7 @@ export const properties: Property[] = [
   {
     id: "emperia-icon-1",
     name: "EMPERIA ICON",
-    developer: "TODAY GLOBAL DEVELOPERS",
+    developer: "Opposite D Y Patil Stadium",
     location: "Nerul",
     type: "Office Spaces",
     price: "₹42 Lakhs+",

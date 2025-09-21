@@ -4,7 +4,7 @@ import { Building2, MapPin, Shield, Users, Award, Clock } from 'lucide-react';
 const AboutUs = () => {
   const stats = [
     { icon: Building2, number: "50+", label: "Projects Completed" },
-    { icon: MapPin, number: "5+", label: "Cities Covered" },
+    { icon: MapPin, number: "20+", label: "Cities Covered" },
     { icon: Users, number: "1000+", label: "Happy Customers" },
     { icon: Award, number: "15+", label: "Years Experience" }
   ];
