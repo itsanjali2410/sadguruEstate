@@ -6,32 +6,32 @@ const Testimonials = () => {
 
   const testimonials = [
     {
-      name: "Priya Sharma",
+      name: "Vaibhavi Patil",
       image: "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop",
-      quote: "Sadguru Estate helped us find our dream home in Navi Mumbai. Their expertise and dedication made the entire process smooth and stress-free.",
+      quote: "I sold my property through Sadguru Estate, and the entire process was quick and transparent. Their team managed negotiations professionally and got me the best deal possible. Great experience overall!",
       rating: 5,
       location: "Navi Mumbai"
     },
     {
-      name: "Rajesh Patel",
+      name: "Bhavika Jhadhav",
       image: "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop",
-      quote: "Excellent service and professional approach. They understood our requirements perfectly and delivered beyond our expectations.",
+      quote: "Sadguru Estate is truly a one-stop solution for property buyers in Navi Mumbai. From site visits to documentation, everything was handled smoothly. I would definitely recommend them to anyone looking for a reliable real estate consultant.",
       rating: 5,
-      location: "Pune"
+      location: "Navi Mumbai"
     },
     {
-      name: "Anita Desai",
-      image: "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop",
-      quote: "The team's local knowledge and 24/7 support made our property investment journey incredibly smooth. Highly recommended!",
-      rating: 5,
-      location: "Mumbai"
-    },
-    {
-      name: "Vikram Singh",
+      name: "Vikrant Mhatre",
       image: "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop",
-      quote: "Professional, reliable, and trustworthy. Sadguru Estate made our commercial property purchase hassle-free.",
+      quote: "I was looking for a 2BHK in Kharghar, and Sadguru Estate helped me find the perfect flat within my budget. They have excellent knowledge of Navi Mumbai property trends and always put the client's needs first.",
       rating: 5,
-      location: "Bangalore"
+      location: "Kharghar"
+    },
+    {
+      name: "Shivani Mane",
+      image: "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop",
+      quote: "The consultants at Sadguru Estate are very professional and patient. They helped me compare multiple projects in Panvel before finalizing the one that met all my requirements. Excellent service and after-sales support!",
+      rating: 5,
+      location: "Panvel"
     }
   ];
 
