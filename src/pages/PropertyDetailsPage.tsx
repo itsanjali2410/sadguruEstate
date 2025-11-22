@@ -1,192 +1,545 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { MapPin, Building2, Calendar, Star, Phone, Mail, Share2, Heart, ArrowLeft } from 'lucide-react';
-import { properties } from '../data/properties';
-import PopupForm from '../components/PopupForm';
+import { ArrowLeft, MapPin, Eye, Share2, Heart, Train, Map, Shield, Home } from 'lucide-react';
+import { properties, type Property } from '../data/properties';
+import StaticContactForm from '../components/StaticContactForm';
 
 const PropertyDetailsPage = () => {
   const { id } = useParams<{ id: string }>();
-  const [showPopup, setShowPopup] = useState(false);
-  const [activeImage, setActiveImage] = useState(0);
+  const [property, setProperty] = useState<Property | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Find the property by ID
-  const property = properties.find(p => p.id === id);
+  useEffect(() => {
+    const foundProperty = properties.find(p => p.id === id);
+    setProperty(foundProperty ?? null);
+    setIsLoading(false);
+  }, [id]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="animate-pulse text-gray-500">Loading...</div>
+      </div>
+    );
+  }
 
   if (!property) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">Property Not Found</h1>
-          <p className="text-gray-600 mb-6">The property you're looking for doesn't exist.</p>
-          <Link 
-            to="/properties" 
-            className="bg-amber-600 text-white px-4 py-2 md:px-6 md:py-3 rounded-lg hover:bg-amber-700 transition-colors"
-          >
-            Back to Properties
+          <h1 className="text-2xl font-semibold text-gray-900 mb-4">Property Not Found</h1>
+          <Link to="/properties" className="text-slate-600 hover:text-slate-800">
+            ← Back to Properties
           </Link>
         </div>
       </div>
     );
   }
 
-  const propertyImages = [
-    property.image,
-    "https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
-    "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
-    "https://images.pexels.com/photos/1029599/pexels-photo-1029599.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
-  ];
-
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Back Button */}
-      <div className="bg-white shadow-sm border-b sticky top-14 md:top-16 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 md:py-4">
-          <Link 
-            to="/properties"
-            className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors text-sm md:text-base"
-          >
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to Properties
-          </Link>
+    <div className="min-h-screen bg-white">
+      {/* Header */}
+      <div className="sticky top-0 z-10 bg-white/95 backdrop-blur-sm border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex items-center justify-between">
+            <Link 
+              to="/properties" 
+              className="flex items-center text-gray-600 hover:text-gray-800 transition-colors"
+            >
+              <ArrowLeft className="h-5 w-5 mr-2" />
+              <span className="text-sm font-medium">Back to Properties</span>
+            </Link>
+            <div className="flex items-center space-x-3">
+              <button className="p-2 text-gray-600 hover:text-gray-800 transition-colors">
+                <Share2 className="h-5 w-5" />
+              </button>
+              <button className="p-2 text-gray-600 hover:text-gray-800 transition-colors">
+                <Heart className="h-5 w-5" />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Content */}
-          <div className="lg:col-span-2">
-            {/* Property Images */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-6 md:mb-8">
-              <div className="relative">
-                <img 
-                  src={propertyImages[activeImage]} 
-                  alt={property.name}
-                  className="w-full h-64 md:h-96 object-cover"
-                />
-                <div className="absolute top-3 left-3 flex space-x-2">
-                  {property.featured && (
-                    <span className="bg-amber-600 text-white px-2 py-0.5 md:px-3 md:py-1 rounded-full text-xs md:text-sm font-medium">
-                      Featured
-                    </span>
-                  )}
-                  {property.verified && (
-                    <span className="bg-green-600 text-white px-2 py-0.5 md:px-3 md:py-1 rounded-full text-xs md:text-sm font-medium">
-                      Verified
-                    </span>
-                  )}
-                </div>
-                <div className="absolute top-3 right-3 flex space-x-2">
-                  <button className="bg-white bg-opacity-80 p-1.5 md:p-2 rounded-full hover:bg-opacity-100 transition-all">
-                    <Heart className="h-4 w-4 text-gray-600" />
-                  </button>
-                  <button className="bg-white bg-opacity-80 p-1.5 md:p-2 rounded-full hover:bg-opacity-100 transition-all">
-                    <Share2 className="h-4 w-4 text-gray-600" />
-                  </button>
-                </div>
-              </div>
-              
-              {/* Thumbnails */}
-              <div className="p-3 md:p-4 flex space-x-2 overflow-x-auto">
-                {propertyImages.map((image, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setActiveImage(index)}
-                    className={`flex-shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-lg overflow-hidden border-2 ${
-                      activeImage === index ? 'border-amber-600' : 'border-gray-200'
-                    }`}
-                  >
+          <div className="lg:col-span-2 space-y-8">
+            {/* Property Image/Video/Gallery */}
+            <div className="relative overflow-hidden rounded-2xl">
+              {property.id === 'today-global-developers-giravale' ? (
+                <video 
+                  className="w-full h-96 sm:h-[500px] object-cover"
+                  controls
+                  autoPlay
+                  muted
+                  loop
+                  poster={property.image}
+                >
+                  <source src="/today_global_developers.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              ) : property.id === 'emperia-icon-1' ? (
+                <div className="space-y-4">
+                  {/* Main Image */}
+                  <div className="relative overflow-hidden rounded-2xl">
                     <img 
-                      src={image} 
-                      alt={`${property.name} ${index + 1}`}
-                      className="w-full h-full object-cover"
+                      src={property.image} 
+                      alt={property.name}
+                      className="w-full h-96 sm:h-[500px] object-cover"
                     />
-                  </button>
-                ))}
-              </div>
+                  </div>
+                  
+                  {/* Office Spaces Gallery */}
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                    <div className="relative overflow-hidden rounded-xl">
+                      <img 
+                        src="/office_spaces/office1.jpg" 
+                        alt="Office Space 1"
+                        className="w-full h-32 sm:h-40 object-cover hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <div className="relative overflow-hidden rounded-xl">
+                      <img 
+                        src="/office_spaces/office2.jpg" 
+                        alt="Office Space 2"
+                        className="w-full h-32 sm:h-40 object-cover hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <div className="relative overflow-hidden rounded-xl">
+                      <img 
+                        src="/office_spaces/office3.jpg" 
+                        alt="Office Space 3"
+                        className="w-full h-32 sm:h-40 object-cover hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <div className="relative overflow-hidden rounded-xl">
+                      <img 
+                        src="/office_spaces/office4.jpg" 
+                        alt="Office Space 4"
+                        className="w-full h-32 sm:h-40 object-cover hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <div className="relative overflow-hidden rounded-xl">
+                      <img 
+                        src="/office_spaces/office5.jpg" 
+                        alt="Office Space 5"
+                        className="w-full h-32 sm:h-40 object-cover hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <div className="relative overflow-hidden rounded-xl">
+                      <img 
+                        src="/office_spaces/office6.jpg" 
+                        alt="Office Space 6"
+                        className="w-full h-32 sm:h-40 object-cover hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                  </div>
+                </div>
+              ) : property.id === 'sea-queen-park-1' ? (
+                <div className="space-y-4">
+                  {/* Main Image */}
+                  <div className="relative overflow-hidden rounded-2xl">
+                    <img 
+                      src={property.image} 
+                      alt={property.name}
+                      className="w-full h-96 sm:h-[500px] object-cover"
+                    />
+                  </div>
+                  
+                  {/* Image Gallery */}
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                    <div className="relative overflow-hidden rounded-xl">
+                      <img 
+                        src="/office_spaces/IMG-20251015-WA0021.jpg" 
+                        alt="Sea Queen Park 1"
+                        className="w-full h-32 sm:h-40 object-cover hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <div className="relative overflow-hidden rounded-xl">
+                      <img 
+                        src="/office_spaces/IMG-20251015-WA0022.jpg" 
+                        alt="Sea Queen Park 2"
+                        className="w-full h-32 sm:h-40 object-cover hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <div className="relative overflow-hidden rounded-xl">
+                      <img 
+                        src="/office_spaces/IMG-20251015-WA0023.jpg" 
+                        alt="Sea Queen Park 3"
+                        className="w-full h-32 sm:h-40 object-cover hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <div className="relative overflow-hidden rounded-xl">
+                      <img 
+                        src="/office_spaces/IMG-20251015-WA0024.jpg" 
+                        alt="Sea Queen Park 4"
+                        className="w-full h-32 sm:h-40 object-cover hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <div className="relative overflow-hidden rounded-xl">
+                      <img 
+                        src="/office_spaces/IMG-20251015-WA0025.jpg" 
+                        alt="Sea Queen Park 5"
+                        className="w-full h-32 sm:h-40 object-cover hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <div className="relative overflow-hidden rounded-xl">
+                      <img 
+                        src="/office_spaces/IMG-20251015-WA0026.jpg" 
+                        alt="Sea Queen Park 6"
+                        className="w-full h-32 sm:h-40 object-cover hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                  </div>
+                </div>
+              ) : property.id === 'oasis-paradise-chs-1' ? (
+                <div className="space-y-4">
+                  {/* Main Image */}
+                  <div className="relative overflow-hidden rounded-2xl">
+                    <img 
+                      src={property.image} 
+                      alt={property.name}
+                      className="w-full h-96 sm:h-[500px] object-cover"
+                    />
+                  </div>
+                  
+                  {/* Image Gallery */}
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                    <div className="relative overflow-hidden rounded-xl">
+                      <img 
+                        src="/office_spaces/WhatsApp Image 2025-11-22 at 13.36.24.jpeg" 
+                        alt="The Oasis 1"
+                        className="w-full h-32 sm:h-40 object-cover hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <div className="relative overflow-hidden rounded-xl">
+                      <img 
+                        src="/office_spaces/WhatsApp Image 2025-11-22 at 13.36.24 (1).jpeg" 
+                        alt="The Oasis 2"
+                        className="w-full h-32 sm:h-40 object-cover hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <div className="relative overflow-hidden rounded-xl">
+                      <img 
+                        src="/office_spaces/WhatsApp Image 2025-11-22 at 13.36.25.jpeg" 
+                        alt="The Oasis 3"
+                        className="w-full h-32 sm:h-40 object-cover hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <div className="relative overflow-hidden rounded-xl">
+                      <img 
+                        src="/office_spaces/WhatsApp Image 2025-11-22 at 13.36.25 (1).jpeg" 
+                        alt="The Oasis 4"
+                        className="w-full h-32 sm:h-40 object-cover hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <img 
+                  src={property.image} 
+                  alt={property.name}
+                  className="w-full h-96 sm:h-[500px] object-cover"
+                />
+              )}
             </div>
 
-            {/* Property Details */}
-            <div className="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-6 md:mb-8">
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-6 space-y-4 md:space-y-0">
-                <div>
-                  <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">{property.name}</h1>
-                  <div className="flex items-center text-gray-600 mb-1 text-sm md:text-base">
-                    <MapPin className="h-4 w-4 md:h-5 md:w-5 mr-2" />
-                    <span>{property.location}</span>
-                  </div>
-                  <div className="flex items-center text-gray-600 mb-1 text-sm md:text-base">
-                    <Building2 className="h-4 w-4 md:h-5 md:w-5 mr-2" />
-                    <span>{property.developer}</span>
-                  </div>
-                  <div className="flex items-center text-gray-600 text-sm md:text-base">
-                    <Calendar className="h-4 w-4 md:h-5 md:w-5 mr-2" />
-                    <span>Possession: {property.possession}</span>
-                  </div>
+            {/* Property Info */}
+            <div className="space-y-6">
+              <div>
+                <h1 className="text-3xl sm:text-4xl font-semibold text-gray-900 mb-2">{property.name}</h1>
+                <div className="flex items-center text-gray-500 mb-4">
+                  <MapPin className="h-4 w-4 mr-2" />
+                  <span>{property.location}</span>
                 </div>
-                <div className="text-left md:text-right">
-                  <div className="text-2xl md:text-3xl font-bold text-amber-600 mb-1">{property.price}</div>
-                  <div className="text-xs md:text-sm text-gray-500">{property.status}</div>
+                <div className="text-3xl sm:text-4xl font-semibold text-gray-900">{property.price}</div>
+              </div>
+
+              {/* Basic Details */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 py-6 border-t border-b border-gray-100">
+                <div className="text-center">
+                  <div className="text-sm text-gray-500 mb-1">Type</div>
+                  <div className="font-medium text-gray-900">{property.type}</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-sm text-gray-500 mb-1">Size</div>
+                  <div className="font-medium text-gray-900">{property.size}</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-sm text-gray-500 mb-1">Developer</div>
+                  <div className="font-medium text-gray-900">{property.developer}</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-sm text-gray-500 mb-1">Possession</div>
+                  <div className="font-medium text-gray-900">{property.possession}</div>
                 </div>
               </div>
 
-              {/* Overview */}
-              <div className="border-t border-gray-200 pt-4 md:pt-6 mb-6">
-                <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-3 md:mb-4">Property Overview</h3>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4">
-                  <div className="text-center p-3 md:p-4 bg-gray-50 rounded-lg">
-                    <div className="text-lg md:text-2xl font-bold text-gray-900">{property.size}</div>
-                    <div className="text-xs md:text-sm text-gray-600">Total Area</div>
+              {/* Description */}
+              <div>
+                <h2 className="text-xl font-semibold text-gray-900 mb-3">About This Property</h2>
+                <p className="text-gray-600 leading-relaxed">
+                  {property.description || "This premium property offers modern living in one of Navi Mumbai's most sought-after locations. Featuring contemporary design and world-class amenities, it provides the perfect blend of comfort and luxury."}
+                </p>
+              </div>
+
+              {/* Investment Benefits - Special for EMPERIA ICON */}
+              {property.id === 'emperia-icon-1' && (
+                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6">
+                  <h2 className="text-xl font-semibold text-gray-900 mb-4">1 Investment, 5 Mega Benefits</h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="flex items-start space-x-3">
+                      <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-gray-900">Safe Investment</h3>
+                        <p className="text-sm text-gray-600">Full CC received</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start space-x-3">
+                      <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-gray-900">3X Rental Yields</h3>
+                        <p className="text-sm text-gray-600">Over residential real estate</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start space-x-3">
+                      <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-gray-900">Higher Returns</h3>
+                        <p className="text-sm text-gray-600">Mixed-used development advantage</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start space-x-3">
+                      <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-gray-900">Navi Mumbai Impact</h3>
+                        <p className="text-sm text-gray-600">Great infrastructure development</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start space-x-3 sm:col-span-2">
+                      <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-gray-900">Steady Cash Flow</h3>
+                        <p className="text-sm text-gray-600">Commercial real estate investment ensures steady cash flow due to longer-term leases</p>
+                      </div>
+                    </div>
                   </div>
-                  {property.carpetArea && (
-                    <div className="text-center p-3 md:p-4 bg-gray-50 rounded-lg">
-                      <div className="text-lg md:text-2xl font-bold text-gray-900">{property.carpetArea}</div>
-                      <div className="text-xs md:text-sm text-gray-600">Carpet Area</div>
+                </div>
+              )}
+
+              {/* External Links */}
+              {property.links && property.links.length > 0 && (
+                <div className="bg-white border border-gray-200 rounded-xl p-6">
+                  <h2 className="text-xl font-semibold text-gray-900 mb-4">Quick Links</h2>
+                  <div className="flex flex-wrap gap-3">
+                    {property.links.map((link) => (
+                      <a
+                        key={link.url}
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center px-4 py-2 rounded-full border border-gray-200 text-sm font-medium text-slate-700 hover:bg-gray-50 transition-colors"
+                      >
+                        {link.label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Ratings Section */}
+              <div className="bg-white border border-gray-200 rounded-xl p-6">
+                <div className="flex items-center mb-6">
+                  <h2 className="text-xl font-semibold text-gray-900 mr-2">Ratings based on features</h2>
+                  <div className="w-5 h-5 bg-gray-200 rounded-full flex items-center justify-center">
+                    <span className="text-xs text-gray-600 font-medium">i</span>
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                  {/* Connectivity */}
+                  <div className="text-center">
+                    <div className="relative w-20 h-20 mx-auto mb-3">
+                      <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 36 36">
+                        <path
+                          className="text-gray-200"
+                          stroke="currentColor"
+                          strokeWidth="3"
+                          fill="none"
+                          d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                        />
+                        <path
+                          className="text-emerald-400"
+                          stroke="currentColor"
+                          strokeWidth="3"
+                          fill="none"
+                          strokeDasharray="90, 100"
+                          d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                        />
+                      </svg>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <Train className="w-6 h-6 text-gray-600" />
+                      </div>
                     </div>
-                  )}
-                  {property.superArea && (
-                    <div className="text-center p-3 md:p-4 bg-gray-50 rounded-lg">
-                      <div className="text-lg md:text-2xl font-bold text-gray-900">{property.superArea}</div>
-                      <div className="text-xs md:text-sm text-gray-600">Super Area</div>
+                    <div className="text-lg font-semibold text-gray-900 mb-1">4.5/5</div>
+                    <div className="text-sm text-gray-500">Connectivity</div>
+                  </div>
+
+                  {/* Neighbourhood */}
+                  <div className="text-center">
+                    <div className="relative w-20 h-20 mx-auto mb-3">
+                      <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 36 36">
+                        <path
+                          className="text-gray-200"
+                          stroke="currentColor"
+                          strokeWidth="3"
+                          fill="none"
+                          d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                        />
+                        <path
+                          className="text-emerald-400"
+                          stroke="currentColor"
+                          strokeWidth="3"
+                          fill="none"
+                          strokeDasharray="88, 100"
+                          d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                        />
+                      </svg>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <Map className="w-6 h-6 text-gray-600" />
+                      </div>
                     </div>
-                  )}
-                  <div className="text-center p-3 md:p-4 bg-gray-50 rounded-lg">
-                    <div className="text-lg md:text-2xl font-bold text-gray-900">{property.type}</div>
-                    <div className="text-xs md:text-sm text-gray-600">Property Type</div>
+                    <div className="text-lg font-semibold text-gray-900 mb-1">4.4/5</div>
+                    <div className="text-sm text-gray-500">Neighbourhood</div>
+                  </div>
+
+                  {/* Safety */}
+                  <div className="text-center">
+                    <div className="relative w-20 h-20 mx-auto mb-3">
+                      <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 36 36">
+                        <path
+                          className="text-gray-200"
+                          stroke="currentColor"
+                          strokeWidth="3"
+                          fill="none"
+                          d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                        />
+                        <path
+                          className="text-emerald-400"
+                          stroke="currentColor"
+                          strokeWidth="3"
+                          fill="none"
+                          strokeDasharray="88, 100"
+                          d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                        />
+                      </svg>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <Shield className="w-6 h-6 text-gray-600" />
+                      </div>
+                    </div>
+                    <div className="text-lg font-semibold text-gray-900 mb-1">4.4/5</div>
+                    <div className="text-sm text-gray-500">Safety</div>
+                  </div>
+
+                  {/* Livability */}
+                  <div className="text-center">
+                    <div className="relative w-20 h-20 mx-auto mb-3">
+                      <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 36 36">
+                        <path
+                          className="text-gray-200"
+                          stroke="currentColor"
+                          strokeWidth="3"
+                          fill="none"
+                          d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                        />
+                        <path
+                          className="text-emerald-400"
+                          stroke="currentColor"
+                          strokeWidth="3"
+                          fill="none"
+                          strokeDasharray="88, 100"
+                          d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                        />
+                      </svg>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <Home className="w-6 h-6 text-gray-600" />
+                      </div>
+                    </div>
+                    <div className="text-lg font-semibold text-gray-900 mb-1">4.4/5</div>
+                    <div className="text-sm text-gray-500">Livability</div>
                   </div>
                 </div>
               </div>
 
-              {/* Configurations */}
-              {property.configurations && property.configurations.length > 0 && (
-                <div className="border-t border-gray-200 pt-4 md:pt-6 mb-6">
-                  <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-3 md:mb-4">Available Configurations</h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
+              {/* Property Configurations - Show for Commercial Properties */}
+              {property.category === 'commercial' && property.configurations && (
+                <div className="bg-white border border-gray-200 rounded-xl p-6">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-6">Available Configurations</h3>
+                  <div className="space-y-4">
                     {property.configurations.map((config, index) => (
-                      <div key={index} className="bg-gray-50 p-3 md:p-4 rounded-lg">
-                        <div className="font-semibold text-gray-900 mb-1">{config.type}</div>
-                        <div className="text-xs md:text-sm text-gray-600 mb-1">Size: {config.size}</div>
-                        <div className="text-base md:text-lg font-bold text-amber-600">{config.price}</div>
+                      <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                        <div>
+                          <div className="font-medium text-gray-900">{config.type}</div>
+                          <div className="text-sm text-gray-600">{config.size}</div>
+                        </div>
+                        <div className="text-right">
+                          <div className="font-semibold text-gray-900">{config.price}</div>
+                          <div className="text-sm text-gray-600">Possession: {property.possession}</div>
+                        </div>
                       </div>
                     ))}
                   </div>
                 </div>
               )}
 
-              {/* Description */}
-              <div className="border-t border-gray-200 pt-4 md:pt-6 mb-6">
-                <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-3 md:mb-4">Description</h3>
-                <p className="text-sm md:text-base text-gray-600 leading-relaxed">{property.description}</p>
-              </div>
+              {/* Property Configurations - Show for Residential Properties */}
+              {property.category !== 'commercial' && property.configurations && (
+                <div className="bg-white border border-gray-200 rounded-xl p-6">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-6">Available Units</h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {property.configurations.map((config, index) => (
+                      <div key={index} className="p-4 bg-gray-50 rounded-lg">
+                        <div className="font-medium text-gray-900 mb-2">{config.type}</div>
+                        <div className="text-sm text-gray-600 mb-2">{config.size}</div>
+                        <div className="font-semibold text-gray-900">{config.price}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {/* Amenities */}
-              {property.amenities && property.amenities.length > 0 && (
-                <div className="border-t border-gray-200 pt-4 md:pt-6">
-                  <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-3 md:mb-4">Amenities</h3>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 md:gap-3">
-                    {property.amenities.map((amenity, index) => (
-                      <div key={index} className="flex items-center space-x-2">
-                        <Star className="h-3 w-3 md:h-4 md:w-4 text-amber-600" />
-                        <span className="text-xs md:text-sm text-gray-600">{amenity}</span>
+              {property.amenities && (
+                <div className="bg-white border border-gray-200 rounded-xl p-6">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-6">
+                    {property.category === 'commercial' ? 'Facilities' : 'Amenities'}
+                  </h3>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                    {property.amenities.map((amenity: string, index: number) => (
+                      <div key={index} className="flex items-center text-gray-700">
+                        <div className="w-2 h-2 bg-amber-500 rounded-full mr-3"></div>
+                        <span className="text-sm">{amenity}</span>
                       </div>
                     ))}
                   </div>
@@ -196,75 +549,74 @@ const PropertyDetailsPage = () => {
           </div>
 
           {/* Sidebar */}
-          <div className="lg:col-span-1">
-            <div className="bg-white rounded-xl shadow-lg p-5 md:p-6 mb-6 lg:sticky lg:top-32">
-              <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-3 md:mb-4">Interested in this property?</h3>
-              <p className="text-sm md:text-base text-gray-600 mb-5 md:mb-6">
-                Get in touch with us for more details and pricing information.
-              </p>
-              
-              <button
-                onClick={() => setShowPopup(true)}
-                className="w-full bg-amber-600 text-white py-2.5 md:py-3 rounded-lg hover:bg-amber-700 transition-colors mb-3 md:mb-4 text-sm md:text-base"
+          <div className="space-y-6">
+            {/* Static Contact Form */}
+            <StaticContactForm propertyName={property.name} />
+
+            {/* Quick Actions */}
+            <div className="space-y-3">
+              <button 
+                onClick={() => {
+                  const phoneNumber = '8454057780';
+                  const message = `Hi! I am interested in scheduling a site visit for ${property.name}. Can you help me?`;
+                  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+                  window.open(whatsappUrl, '_blank');
+                }}
+                className="w-full bg-white border border-gray-200 text-gray-700 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors flex items-center justify-center"
               >
-                Get Quote
-              </button>
-              
-              <button className="w-full bg-gray-900 text-white py-2.5 md:py-3 rounded-lg hover:bg-gray-800 transition-colors mb-3 md:mb-4 text-sm md:text-base">
+                <Eye className="h-4 w-4 mr-2" />
                 Schedule Site Visit
               </button>
+            </div>
 
-              <div className="border-t border-gray-200 pt-3 md:pt-4">
-                <div className="flex items-center space-x-2 md:space-x-3 mb-2 md:mb-3">
-                  <Phone className="h-4 w-4 md:h-5 md:w-5 text-amber-600" />
-                  <span className="text-sm md:text-base text-gray-600">+91 98765 43210</span>
+            {/* Property Highlights */}
+            <div className="bg-gray-50 rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Property Highlights</h3>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-600">Status</span>
+                  <span className="text-sm font-medium text-green-600">{property.status}</span>
                 </div>
-                <div className="flex items-center space-x-2 md:space-x-3">
-                  <Mail className="h-4 w-4 md:h-5 md:w-5 text-amber-600" />
-                  <span className="text-sm md:text-base text-gray-600">info@sadguruestate.com</span>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-600">Verified</span>
+                  <span className="text-sm font-medium text-blue-600">✓ RERA Approved</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-600">Developer</span>
+                  <span className="text-sm font-medium text-gray-900">{property.developer}</span>
                 </div>
               </div>
             </div>
 
-            {/* Similar Properties */}
-            <div className="bg-white rounded-xl shadow-lg p-5 md:p-6">
-              <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-3 md:mb-4">Similar Properties</h3>
-              <div className="space-y-3 md:space-y-4">
-                {properties
-                  .filter(p => p.location === property.location && p.id !== property.id)
-                  .slice(0, 3)
-                  .map((similarProperty) => (
-                    <Link 
-                      key={similarProperty.id}
-                      to={`/property/${similarProperty.id}`}
-                      className="block group"
-                    >
-                      <div className="flex space-x-2 md:space-x-3">
-                        <img 
-                          src={similarProperty.image} 
-                          alt={similarProperty.name}
-                          className="w-14 h-14 md:w-16 md:h-16 object-cover rounded-lg"
-                        />
-                        <div className="flex-1">
-                          <h4 className="font-semibold text-gray-900 group-hover:text-amber-600 transition-colors text-sm md:text-base">
-                            {similarProperty.name}
-                          </h4>
-                          <p className="text-xs md:text-sm text-gray-600">{similarProperty.location}</p>
-                          <p className="text-sm md:text-base font-semibold text-amber-600">{similarProperty.price}</p>
-                        </div>
-                      </div>
-                    </Link>
-                  ))}
+            {/* Direct Contact */}
+            {property.contact && (
+              <div className="bg-white border border-gray-200 rounded-xl p-6 space-y-4">
+                <h3 className="text-lg font-semibold text-gray-900">Direct Contact</h3>
+                <div>
+                  <p className="text-sm text-gray-500">Name</p>
+                  <p className="text-base font-medium text-gray-900">{property.contact.name}</p>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <a
+                    href={`tel:${property.contact.phone}`}
+                    className="w-full bg-slate-900 text-white py-2 rounded-lg font-medium hover:bg-slate-800 transition-colors text-center"
+                  >
+                    Call {property.contact.phone}
+                  </a>
+                  <a
+                    href={`https://wa.me/${property.contact.phone}?text=${encodeURIComponent(`Hi ${property.contact.name}, I am interested in ${property.name}.`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full border border-slate-900 text-slate-900 py-2 rounded-lg font-medium hover:bg-slate-50 transition-colors text-center"
+                  >
+                    WhatsApp
+                  </a>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
-
-      <PopupForm 
-        isOpen={showPopup} 
-        onClose={() => setShowPopup(false)} 
-      />
     </div>
   );
 };

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Building2, MapPin, Shield, Users, Award, Clock } from 'lucide-react';
 
 const AboutUs = () => {
@@ -31,10 +30,8 @@ const AboutUs = () => {
     <section className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">About Sadguru Estate</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            We create high-quality homes, commercial spaces, and plots across Navi Mumbai. Our projects are designed to offer comfort, value, and convenience for people looking to live or invest.
-          </p>
+          <h2 className="text-4xl font-semibold text-gray-900 mb-4">About Sadguru Estate</h2>
+          
         </div>
 
         {/* Stats Section */}
@@ -43,10 +40,10 @@ const AboutUs = () => {
             const IconComponent = stat.icon;
             return (
               <div key={index} className="text-center">
-                <div className="bg-amber-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="bg-primary w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                   <IconComponent className="h-8 w-8 text-white" />
                 </div>
-                <div className="text-3xl font-bold text-gray-900 mb-2">{stat.number}</div>
+                <div className="text-3xl font-semibold text-gray-900 mb-2">{stat.number}</div>
                 <div className="text-gray-600">{stat.label}</div>
               </div>
             );
@@ -54,53 +51,53 @@ const AboutUs = () => {
         </div>
 
         {/* What Makes Us Different */}
-        <div className="mb-16">
-          <h3 className="text-3xl font-bold text-gray-900 text-center mb-12">What Makes Us Different</h3>
+        {/* <div className="mb-16">
+          <h3 className="text-3xl font-semibold text-gray-900 text-center mb-12">What Makes Us Different</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-gray-50 p-8 rounded-2xl">
-              <div className="bg-amber-600 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+              <div className="bg-primary w-16 h-16 rounded-full flex items-center justify-center mb-6">
                 <MapPin className="h-8 w-8 text-white" />
               </div>
-              <h4 className="text-xl font-bold text-gray-900 mb-4">Projects Across Navi Mumbai</h4>
+              <h4 className="text-xl font-semibold text-gray-900 mb-4">Projects Across Navi Mumbai</h4>
               <p className="text-gray-600 leading-relaxed">
                 From Kharghar to Panvel, Ulwe to Taloja—we offer homes, plots, and shops in prime, fast-growing locations with excellent connectivity and infrastructure.
               </p>
             </div>
 
             <div className="bg-gray-50 p-8 rounded-2xl">
-              <div className="bg-amber-600 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+              <div className="bg-primary w-16 h-16 rounded-full flex items-center justify-center mb-6">
                 <Shield className="h-8 w-8 text-white" />
               </div>
-              <h4 className="text-xl font-bold text-gray-900 mb-4">Direct Dealing, No Middlemen</h4>
+              <h4 className="text-xl font-semibold text-gray-900 mb-4">Direct Dealing, No Middlemen</h4>
               <p className="text-gray-600 leading-relaxed">
                 Buy directly from the developer with full project details, clear pricing, and zero hidden charges. We ensure complete transparency in every transaction.
               </p>
             </div>
 
             <div className="bg-gray-50 p-8 rounded-2xl">
-              <div className="bg-amber-600 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+              <div className="bg-primary w-16 h-16 rounded-full flex items-center justify-center mb-6">
                 <Award className="h-8 w-8 text-white" />
               </div>
-              <h4 className="text-xl font-bold text-gray-900 mb-4">Spaces Built for Future Value</h4>
+              <h4 className="text-xl font-semibold text-gray-900 mb-4">Spaces Built for Future Value</h4>
               <p className="text-gray-600 leading-relaxed">
                 Every space is designed with smart layouts, quality materials, and strong long-term growth potential to maximize your investment returns.
               </p>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Our Commitment */}
         <div className="bg-gray-900 text-white rounded-3xl p-12 text-center">
-          <h3 className="text-3xl font-bold mb-6">Our Commitment</h3>
+          <h3 className="text-3xl font-semibold mb-6">Our Commitment</h3>
           <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
             We are committed to delivering premium residential, commercial, and plot projects across Navi Mumbai. With a focus on quality, transparency, and timely delivery, we help you find the perfect space to live or invest.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <span className="bg-amber-600 px-4 py-2 rounded-full text-sm font-medium">Quality Assurance</span>
-            <span className="bg-amber-600 px-4 py-2 rounded-full text-sm font-medium">Timely Delivery</span>
-            <span className="bg-amber-600 px-4 py-2 rounded-full text-sm font-medium">Transparent Pricing</span>
-            <span className="bg-amber-600 px-4 py-2 rounded-full text-sm font-medium">Customer Support</span>
-            <span className="bg-amber-600 px-4 py-2 rounded-full text-sm font-medium">RERA Compliant</span>
+            <span className="bg-primary px-4 py-2 rounded-full text-sm font-medium">Quality Assurance</span>
+            <span className="bg-primary px-4 py-2 rounded-full text-sm font-medium">Timely Delivery</span>
+            <span className="bg-primary px-4 py-2 rounded-full text-sm font-medium">Transparent Pricing</span>
+            <span className="bg-primary px-4 py-2 rounded-full text-sm font-medium">Customer Support</span>
+            <span className="bg-primary px-4 py-2 rounded-full text-sm font-medium">RERA Compliant</span>
           </div>
         </div>
       </div>

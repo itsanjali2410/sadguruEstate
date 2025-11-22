@@ -1,164 +1,154 @@
-import React, { useState, useEffect } from 'react';
-import { X, Phone, Mail, MapPin, MessageSquare } from 'lucide-react';
+import { useState } from 'react';
+import { X, CheckCircle, User, Phone, MessageSquare } from 'lucide-react';
 
 interface PopupFormProps {
   isOpen: boolean;
   onClose: () => void;
+  propertyName?: string;
 }
 
-const PopupForm: React.FC<PopupFormProps> = ({ isOpen, onClose }) => {
+const PopupForm = ({ isOpen, onClose, propertyName }: PopupFormProps) => {
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
     phone: '',
-    location: '',
-    message: ''
+    requirements: ''
   });
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
     console.log('Form submitted:', formData);
-    onClose();
-    // Reset form
+    setIsSubmitted(true);
+    
+    // Reset form after 3 seconds
+    setTimeout(() => {
+      setIsSubmitted(false);
     setFormData({
       name: '',
-      email: '',
       phone: '',
-      location: '',
-      message: ''
-    });
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+        requirements: ''
+      });
+      onClose();
+    }, 3000);
   };
 
   if (!isOpen) return null;
 
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
-        <div className="p-6">
-          {/* Header */}
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold text-gray-900">Get Instant Details</h2>
-            <button 
-              onClick={onClose}
-              className="text-gray-400 hover:text-gray-600 transition-colors"
-            >
-              <X className="h-6 w-6" />
-            </button>
+  if (isSubmitted) {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md">
+        <div className="relative w-full max-w-md bg-white rounded-xl p-8 text-center">
+          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <CheckCircle className="h-8 w-8 text-green-600" />
           </div>
+          <h3 className="text-xl font-semibold text-gray-900 mb-2">Thank You!</h3>
+          <p className="text-gray-600">
+            We'll contact you within 24 hours with more details.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md">
+      <div className="relative w-full max-w-md bg-white rounded-xl shadow-2xl">
+        {/* Close Button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 p-2 text-gray-400 hover:text-gray-600 transition-colors bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:shadow-xl hover:scale-105"
+        >
+          <X className="h-5 w-5" />
+        </button>
+
+        {/* Form Header */}
+        <div className="p-6 pb-4">
+          <div className="text-center mb-6">
+            <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-dark rounded-full flex items-center justify-center mx-auto mb-4">
+              <User className="h-8 w-8 text-white" />
+            </div>
+            <h2 className="text-xl font-semibold text-gray-900 mb-2">Get Information</h2>
+            <p className="text-gray-600 text-sm">
+              {propertyName ? `Interested in ${propertyName}?` : 'Get detailed information about properties'}
+            </p>
+            </div>
+            
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Full Name *
-              </label>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                placeholder="Enter your full name"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Email Address *
-              </label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <User className="h-5 w-5 text-gray-400" />
+              </div>
                 <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
                   required
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                  placeholder="your@email.com"
+                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                placeholder="Your Name"
                 />
               </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Phone Number *
-              </label>
-              <div className="relative">
-                <Phone className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+              
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <Phone className="h-5 w-5 text-gray-400" />
+              </div>
                 <input
                   type="tel"
                   name="phone"
                   value={formData.phone}
-                  onChange={handleChange}
+                  onChange={handleInputChange}
                   required
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                  placeholder="+91 98765 43210"
-                />
-              </div>
+                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                placeholder="Mobile Number"
+              />
             </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Preferred Location
-              </label>
-              <div className="relative">
-                <MapPin className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
-                <select
-                  name="location"
-                  value={formData.location}
-                  onChange={handleChange}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                >
-                  <option value="">Select Location</option>
-                  <option value="navi-mumbai">Navi Mumbai</option>
-                  <option value="mumbai">Mumbai</option>
-                  <option value="pune">Pune</option>
-                  <option value="bangalore">Bangalore</option>
-                  <option value="delhi">Delhi</option>
-                  <option value="hyderabad">Hyderabad</option>
-                </select>
+            
+            <div className="relative">
+              <div className="absolute top-3 left-3 pointer-events-none">
+                <MessageSquare className="h-5 w-5 text-gray-400" />
               </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Message
-              </label>
-              <div className="relative">
-                <MessageSquare className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
                 <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows={4}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent resize-none"
-                  placeholder="Tell us about your requirements..."
-                />
-              </div>
+                name="requirements"
+                value={formData.requirements}
+                  onChange={handleInputChange}
+                  rows={3}
+                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none text-sm"
+                placeholder="Your Requirements"
+              />
             </div>
-
+            
             <button
               type="submit"
-              className="w-full bg-amber-600 text-white py-3 px-6 rounded-lg hover:bg-amber-700 transition-colors font-medium"
+              className="w-full bg-primary text-white py-3 rounded-lg font-medium hover:bg-primary-dark transition-colors text-sm"
             >
-              Get Instant Details
+              Submit
             </button>
           </form>
 
-          <p className="text-xs text-gray-500 text-center mt-4">
-            By submitting this form, you agree to our privacy policy and terms of service.
-          </p>
-        </div>
+          {/* Trust Indicators */}
+          <div className="mt-4 pt-4 border-t border-gray-100">
+            <div className="flex items-center justify-between text-xs text-gray-500">
+              <div className="flex items-center space-x-1">
+                <CheckCircle className="h-3 w-3 text-green-500" />
+                <span>RERA Verified</span>
+              </div>
+              <div className="flex items-center space-x-1">
+                <Phone className="h-3 w-3 text-primary" />
+                <span>24/7 Support</span>
+              </div>
+                </div>
+              </div>
+            </div>
       </div>
     </div>
   );
