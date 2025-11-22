@@ -68,11 +68,14 @@ const PropertiesPage = () => {
 
   // Use search results if available, otherwise filter properties based on current filters
   const filteredProperties = (searchResults && searchResults.length > 0) ? searchResults : properties.filter(property => {
-    // Handle category filtering - Only filter for commercial, show all for others
+    // Handle category filtering
     const categoryParam = searchParams.get('type');
     
-    // Buy and Rent pages show nothing (empty)
-    if (categoryParam === 'buy' || categoryParam === 'rent') return false;
+    // Buy page shows only buy properties
+    if (categoryParam === 'buy' && property.category !== 'buy') return false;
+    
+    // Rent page shows nothing (empty)
+    if (categoryParam === 'rent') return false;
     
     // Commercial page shows only commercial properties
     if (categoryParam === 'commercial' && property.category !== 'commercial') return false;
@@ -420,7 +423,7 @@ const PropertiesPage = () => {
                  searchParams.get('type') === 'rent' ? 'Properties for Rent' :
                  'All Properties'} ({filteredProperties.length})
               </h2>
-              {(searchParams.get('type') === 'buy' || searchParams.get('type') === 'rent') && filteredProperties.length === 0 && (
+              {searchParams.get('type') === 'rent' && filteredProperties.length === 0 && (
                 <p className="text-gray-600 mt-2">This section is currently not available. Please visit our Properties page to view all available listings.</p>
               )}
               {searchParams.get('type') === 'commercial' && (
