@@ -1,17 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Search, Filter, MapPin, Eye, Phone, MessageSquare } from 'lucide-react';
+import { Search, Filter, MapPin, Eye } from 'lucide-react';
 import PopupForm from '../components/PopupForm';
 import StaticContactForm from '../components/StaticContactForm';
 import { properties, locations, propertyTypes, developers, Property } from '../data/properties';
-import { SearchFilters } from '../utils/searchUtils';
 
 const PropertiesPage = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const [showFilters, setShowFilters] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
   const [filters, setFilters] = useState({
     location: '',
     priceRange: [0, 10000000],
@@ -23,7 +21,6 @@ const PropertiesPage = () => {
 
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<Property[] | null>(null);
-  const [searchFilters, setSearchFilters] = useState<SearchFilters | null>(null);
 
   // Handle search results from home page
   useEffect(() => {
@@ -31,8 +28,11 @@ const PropertiesPage = () => {
     const storedFilters = sessionStorage.getItem('searchFilters');
     
     if (storedResults && storedFilters) {
-      setSearchResults(JSON.parse(storedResults));
-      setSearchFilters(JSON.parse(storedFilters));
+      const parsedResults = JSON.parse(storedResults);
+      // Only set search results if there are actual results
+      if (parsedResults && parsedResults.length > 0) {
+        setSearchResults(parsedResults);
+      }
       
       // Clear the stored data after using it
       sessionStorage.removeItem('searchResults');
@@ -43,27 +43,41 @@ const PropertiesPage = () => {
   // Handle URL parameters for location, category filtering, and search
   useEffect(() => {
     const locationParam = searchParams.get('location');
-    const categoryParam = searchParams.get('type');
     const searchParam = searchParams.get('search');
+    
+    // Clear search results if there's no search parameter
+    if (!searchParam && searchResults) {
+      setSearchResults(null);
+    }
     
     if (locationParam) {
       setFilters(prev => ({ ...prev, location: locationParam }));
+    } else {
+      setFilters(prev => ({ ...prev, location: '' }));
     }
     
-    if (categoryParam) {
-      setFilters(prev => ({ ...prev, propertyType: categoryParam }));
-    }
+    // Don't set propertyType from categoryParam - category (buy/rent/commercial) is different from property.type (Residential/Commercial)
+    // propertyType filter is handled separately in the filter logic
     
     if (searchParam) {
       setSearchQuery(searchParam);
+    } else {
+      setSearchQuery('');
     }
-  }, [searchParams]);
+  }, [searchParams, searchResults]);
 
   // Use search results if available, otherwise filter properties based on current filters
-  const filteredProperties = searchResults || properties.filter(property => {
-    // Handle category filtering (Buy/Rent/Commercial) - this is the main filter
+  const filteredProperties = (searchResults && searchResults.length > 0) ? searchResults : properties.filter(property => {
+    // Handle category filtering - Only filter for commercial, show all for others
     const categoryParam = searchParams.get('type');
-    if (categoryParam && property.category !== categoryParam) return false;
+    
+    // Buy and Rent pages show nothing (empty)
+    if (categoryParam === 'buy' || categoryParam === 'rent') return false;
+    
+    // Commercial page shows only commercial properties
+    if (categoryParam === 'commercial' && property.category !== 'commercial') return false;
+    
+    // If no type parameter, show ALL properties (no category filter)
     
     // Additional filters
     if (filters.location && property.location !== filters.location) return false;
@@ -402,10 +416,13 @@ const PropertiesPage = () => {
               <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-2">
                 {searchResults ? 'Search Results' : 
                  searchParams.get('type') === 'commercial' ? 'Commercial Properties' :
-                 searchParams.get('type') === 'buy' ? 'Properties for Sale' :
+                 searchParams.get('type') === 'buy' ? 'Properties for Buy' :
                  searchParams.get('type') === 'rent' ? 'Properties for Rent' :
                  'All Properties'} ({filteredProperties.length})
               </h2>
+              {(searchParams.get('type') === 'buy' || searchParams.get('type') === 'rent') && filteredProperties.length === 0 && (
+                <p className="text-gray-600 mt-2">This section is currently not available. Please visit our Properties page to view all available listings.</p>
+              )}
               {searchParams.get('type') === 'commercial' && (
                 <p className="text-gray-600">Premium commercial spaces and office properties</p>
               )}

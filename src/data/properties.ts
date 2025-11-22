@@ -34,43 +34,7 @@ export interface Property {
 
 export const properties: Property[] = [
   // Today Global Developers - Nerul
-  {
-    id: "today-global-developers-1",
-    name: "Today Global Developers",
-    developer: "Today Global Developers",
-    location: "Nerul",
-    type: "Residential",
-    category: "buy",
-    price: "₹41.54 Lakhs+",
-    size: "400-580 sqft",
-    possession: "December 2026",
-    status: "",
-    featured: true,
-    verified: true,
-    amenities: [
-      "5 acres of Magnificent Township",
-      "G+18 Storey Towers",
-      "30+ Amenities",
-      "Ample Car Parking Space",
-      "Swimming pools and gyms",
-      "Business Lounge & Library",
-      "Jogging track"
-    ],
-    description: "Premium residential project with 1BHK and 2BHK configurations in a magnificent township with world-class amenities.",
-    image: "/homeimage.png",
-    configurations: [
-      {
-        type: "1BHK",
-        size: "400-430 sqft",
-        price: "₹41.54-45 Lakhs (All in)"
-      },
-      {
-        type: "2BHK",
-        size: "578-580 sqft",
-        price: "₹65.70 Lakhs (All in)"
-      }
-    ]
-  },
+ 
 
   // Today Global Developers - Giravale Panvel
   {
@@ -115,7 +79,7 @@ export const properties: Property[] = [
   // NMS Midas - Belapur
   {
     id: "nms-midas-1",
-    name: "NMS Midas",
+    name: "NMSMidas",
     developer: "NMS Developers",
     location: "Belapur",
     type: "Commercial",
@@ -139,7 +103,7 @@ export const properties: Property[] = [
       "Rain Water Harvesting"
     ],
     description: "NMS Midas offers multiple investment options in varied budget range. Located in Belapur, Navi Mumbai with excellent connectivity and modern amenities.",
-    image: "/NMS-MIDAS.jpg",
+    image: "/office_spaces/nms.jpg",
     configurations: [
       {
         type: "Shop",
