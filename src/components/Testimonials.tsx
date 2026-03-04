@@ -4,34 +4,53 @@ import { useState, useEffect } from 'react';
 const Testimonials = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map((word) => word[0])
+      .join('')
+      .toUpperCase();
+  };
+
+  const getAvatarColor = (name: string) => {
+    const initials = getInitials(name);
+    const colorMap: { [key: string]: string } = {
+      VP: 'bg-indigo-500',
+      BJ: 'bg-purple-500',
+      VM: 'bg-blue-500',
+      SM: 'bg-teal-500'
+    };
+    return colorMap[initials] || 'bg-gray-500';
+  };
+
   const testimonials = [
     {
-      name: "Vaibhavi Patil",
-      image: "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop",
-      quote: "I sold my property through Sadguru Estate, and the entire process was quick and transparent. Their team managed negotiations professionally and got me the best deal possible. Great experience overall!",
+      name: 'Vaibhavi Patil',
+      quote:
+        'I sold my property through Sadguru Estate, and the entire process was quick and transparent. Their team managed negotiations professionally and got me the best deal possible. Great experience overall!',
       rating: 5,
-      location: "Navi Mumbai"
+      location: 'Navi Mumbai'
     },
     {
-      name: "Bhavika Jhadhav",
-      image: "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop",
-      quote: "Sadguru Estate is truly a one-stop solution for property buyers in Navi Mumbai. From site visits to documentation, everything was handled smoothly. I would definitely recommend them to anyone looking for a reliable real estate consultant.",
+      name: 'Bhavika Jhadhav',
+      quote:
+        'Sadguru Estate is truly a one-stop solution for property buyers in Navi Mumbai. From site visits to documentation, everything was handled smoothly. I would definitely recommend them to anyone looking for a reliable real estate consultant.',
       rating: 5,
-      location: "Navi Mumbai"
+      location: 'Navi Mumbai'
     },
     {
-      name: "Vikrant Mhatre",
-      image: "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop",
-      quote: "I was looking for a 2BHK in Kharghar, and Sadguru Estate helped me find the perfect flat within my budget. They have excellent knowledge of Navi Mumbai property trends and always put the client's needs first.",
+      name: 'Vikrant Mhatre',
+      quote:
+        'I was looking for a 2BHK in Kharghar, and Sadguru Estate helped me find the perfect flat within my budget. They have excellent knowledge of Navi Mumbai property trends and always put the client\'s needs first.',
       rating: 5,
-      location: "Kharghar"
+      location: 'Kharghar'
     },
     {
-      name: "Shivani Mane",
-      image: "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop",
-      quote: "The consultants at Sadguru Estate are very professional and patient. They helped me compare multiple projects in Panvel before finalizing the one that met all my requirements. Excellent service and after-sales support!",
+      name: 'Shivani Mane',
+      quote:
+        'The consultants at Sadguru Estate are very professional and patient. They helped me compare multiple projects in Panvel before finalizing the one that met all my requirements. Excellent service and after-sales support!',
       rating: 5,
-      location: "Panvel"
+      location: 'Panvel'
     }
   ];
 
@@ -58,18 +77,26 @@ const Testimonials = () => {
           <p className="text-xl text-gray-600">Real experiences from satisfied customers</p>
         </div>
 
-        <div className="relative max-w-4xl mx-auto">  
+        <div className="relative max-w-4xl mx-auto">
           <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
             <div className="text-center">
-              <img 
-                src={testimonials[currentSlide].image} 
-                alt={testimonials[currentSlide].name}
-                className="w-20 h-20 rounded-full mx-auto mb-6 object-cover"
-              />
-              
+              {/* Initials Avatar */}
+              <div
+                className={`w-20 h-20 rounded-full mx-auto mb-6 flex items-center justify-center ${getAvatarColor(
+                  testimonials[currentSlide].name
+                )}`}
+              >
+                <span className="text-white font-bold text-2xl">
+                  {getInitials(testimonials[currentSlide].name)}
+                </span>
+              </div>
+
               <div className="flex justify-center mb-4">
                 {[...Array(testimonials[currentSlide].rating)].map((_, i) => (
-                  <Star key={i} className="h-5 w-5 text-amber-400 fill-current" />
+                  <Star
+                    key={i}
+                    className="h-5 w-5 text-amber-400 fill-current"
+                  />
                 ))}
               </div>
 
@@ -78,21 +105,23 @@ const Testimonials = () => {
               </blockquote>
 
               <div>
-                <h4 className="text-xl font-semibold text-gray-900">{testimonials[currentSlide].name}</h4>
+                <h4 className="text-xl font-semibold text-gray-900">
+                  {testimonials[currentSlide].name}
+                </h4>
                 <p className="text-gray-600">{testimonials[currentSlide].location}</p>
               </div>
             </div>
           </div>
 
           {/* Navigation Buttons */}
-          <button 
+          <button
             onClick={prevSlide}
             className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-shadow"
           >
             <ChevronLeft className="h-6 w-6 text-gray-600" />
           </button>
-          
-          <button 
+
+          <button
             onClick={nextSlide}
             className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-shadow"
           >

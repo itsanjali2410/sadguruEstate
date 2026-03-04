@@ -34,15 +34,15 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 sm:h-20">
           {/* Logo */}
-          <div className="flex items-center space-x-2 sm:space-x-3">
+          <Link to="/" className="flex items-center space-x-2 sm:space-x-3 hover:opacity-80 transition-opacity">
             <div className="flex-shrink-0">
-              <img 
-                src="/sadguru_logo.png" 
-                alt="Sadguru Estate" 
+              <img
+                src="/sadguru_logo.png"
+                alt="Sadguru Estate"
                 className="h-10 sm:h-12 md:h-14 w-auto"
               />
             </div>
-          </div>
+          </Link>
 
 
           {/* Desktop Navigation */}
@@ -209,7 +209,6 @@ const Header = () => {
         {isSearchOpen && (
           <div className="absolute top-full left-0 right-0 bg-white shadow-lg border-t border-gray-200 z-40">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-              <div className="text-sm text-gray-500 mb-2">Search form is open (debug)</div>
               <form onSubmit={handleSearch} className="flex items-center space-x-4">
                 <div className="flex-1 relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />

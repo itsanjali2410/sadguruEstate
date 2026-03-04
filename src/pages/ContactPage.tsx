@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { MapPin, Phone, Mail, Clock, Send, MessageSquare, User, Home, Instagram, Facebook, Twitter, Linkedin } from 'lucide-react';
 
 const ContactPage = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -14,7 +16,16 @@ const ContactPage = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
-    // Handle form submission
+    // Reset form and navigate to thank you page
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      location: '',
+      propertyType: '',
+      message: ''
+    });
+    navigate('/thank-you');
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {

@@ -1121,7 +1121,7 @@ export const properties: Property[] = [
 
   // Platinum Elysium
   {
-    id: "platinum-elysium-1",
+    id: "platinum-elysium-2",
     name: "Platinum Elysium",
     developer: "Platinum Developers",
     location: "Nerul",
@@ -1231,7 +1231,7 @@ export const properties: Property[] = [
 
   // Sai World City Panvel
   {
-    id: "sai-world-city-panvel-1",
+    id: "sai-world-city-panvel-2",
     name: "Sai World City Panvel",
     developer: "Sai Developers",
     location: "Panvel",

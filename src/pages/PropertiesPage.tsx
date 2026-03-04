@@ -70,13 +70,13 @@ const PropertiesPage = () => {
   const filteredProperties = (searchResults && searchResults.length > 0) ? searchResults : properties.filter(property => {
     // Handle category filtering
     const categoryParam = searchParams.get('type');
-    
+
     // Buy page shows only buy properties
     if (categoryParam === 'buy' && property.category !== 'buy') return false;
-    
-    // Rent page shows nothing (empty)
-    if (categoryParam === 'rent') return false;
-    
+
+    // Rent page shows only rent properties
+    if (categoryParam === 'rent' && property.category !== 'rent') return false;
+
     // Commercial page shows only commercial properties
     if (categoryParam === 'commercial' && property.category !== 'commercial') return false;
     
@@ -417,15 +417,12 @@ const PropertiesPage = () => {
             {/* Results Header */}
             <div className="mb-8">
               <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-2">
-                {searchResults ? 'Search Results' : 
+                {searchResults ? 'Search Results' :
                  searchParams.get('type') === 'commercial' ? 'Commercial Properties' :
                  searchParams.get('type') === 'buy' ? 'Properties for Buy' :
                  searchParams.get('type') === 'rent' ? 'Properties for Rent' :
                  'All Properties'} ({filteredProperties.length})
               </h2>
-              {searchParams.get('type') === 'rent' && filteredProperties.length === 0 && (
-                <p className="text-gray-600 mt-2">This section is currently not available. Please visit our Properties page to view all available listings.</p>
-              )}
               {searchParams.get('type') === 'commercial' && (
                 <p className="text-gray-600">Premium commercial spaces and office properties</p>
               )}

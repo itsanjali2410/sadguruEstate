@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Phone, User, MessageSquare, CheckCircle } from 'lucide-react';
 
 interface StaticContactFormProps {
@@ -7,6 +8,7 @@ interface StaticContactFormProps {
 }
 
 const StaticContactForm = ({ propertyName, className = "" }: StaticContactFormProps) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -26,16 +28,16 @@ const StaticContactForm = ({ propertyName, className = "" }: StaticContactFormPr
     e.preventDefault();
     console.log('Form submitted:', formData);
     setIsSubmitted(true);
-    
-    // Reset form after 3 seconds
+
+    // Navigate to thank you page after 2 seconds
     setTimeout(() => {
-      setIsSubmitted(false);
       setFormData({
         name: '',
         phone: '',
         requirements: ''
       });
-    }, 3000);
+      navigate('/thank-you');
+    }, 2000);
   };
 
   if (isSubmitted) {

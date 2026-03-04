@@ -10,6 +10,7 @@ import ContactPage from './pages/ContactPage';
 import AboutPage from './pages/AboutPage';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import TermsConditionsPage from './pages/TermsConditionsPage';
+import ThankYouPage from './pages/ThankYouPage';
 
 // Component to scroll to top on route change
 function ScrollToTop() {
@@ -34,6 +35,7 @@ function App() {
           <Route path="/property/:id" element={<PropertyDetailsPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/thank-you" element={<ThankYouPage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
           <Route path="/terms-conditions" element={<TermsConditionsPage />} />
         </Routes>

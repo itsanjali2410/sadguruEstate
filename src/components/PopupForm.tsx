@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { X, CheckCircle, User, Phone, MessageSquare } from 'lucide-react';
 
 interface PopupFormProps {
@@ -8,6 +9,7 @@ interface PopupFormProps {
 }
 
 const PopupForm = ({ isOpen, onClose, propertyName }: PopupFormProps) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -27,17 +29,17 @@ const PopupForm = ({ isOpen, onClose, propertyName }: PopupFormProps) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
     setIsSubmitted(true);
-    
-    // Reset form after 3 seconds
+
+    // Navigate to thank you page after 2 seconds
     setTimeout(() => {
-      setIsSubmitted(false);
-    setFormData({
-      name: '',
-      phone: '',
+      setFormData({
+        name: '',
+        phone: '',
         requirements: ''
       });
       onClose();
-    }, 3000);
+      navigate('/thank-you');
+    }, 2000);
   };
 
   if (!isOpen) return null;
