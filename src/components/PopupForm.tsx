@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { X, CheckCircle, User, Phone, MessageSquare } from 'lucide-react';
+import { sendEmailViaFormspree, logFormSubmission } from '../services/emailService';
 
 interface PopupFormProps {
   isOpen: boolean;
@@ -12,6 +13,7 @@ const PopupForm = ({ isOpen, onClose, propertyName }: PopupFormProps) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
+    email: '',
     phone: '',
     requirements: ''
   });
@@ -25,15 +27,34 @@ const PopupForm = ({ isOpen, onClose, propertyName }: PopupFormProps) => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+
+    // Log submission for analytics
+    logFormSubmission({
+      name: formData.name,
+      email: formData.email || 'not-provided@sadguruestate.com',
+      phone: formData.phone,
+      message: formData.requirements,
+      formType: 'property_inquiry'
+    });
+
+    // Send email via Formspree
+    await sendEmailViaFormspree({
+      name: formData.name,
+      email: formData.email || 'not-provided@sadguruestate.com',
+      phone: formData.phone,
+      message: formData.requirements,
+      formType: 'property_inquiry'
+    });
+
     setIsSubmitted(true);
 
     // Navigate to thank you page after 2 seconds
     setTimeout(() => {
       setFormData({
         name: '',
+        email: '',
         phone: '',
         requirements: ''
       });
@@ -99,7 +120,21 @@ const PopupForm = ({ isOpen, onClose, propertyName }: PopupFormProps) => {
                 placeholder="Your Name"
                 />
               </div>
-              
+
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <User className="h-5 w-5 text-gray-400" />
+              </div>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                placeholder="Email Address (Optional)"
+              />
+            </div>
+
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <Phone className="h-5 w-5 text-gray-400" />

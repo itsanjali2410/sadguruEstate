@@ -1,0 +1,21 @@
+# Sadguru Estate - robots.txt
+# Allow all search engines to crawl the website
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+
+# Specific rules for Google
+User-agent: Googlebot
+Allow: /
+
+# Specific rules for Bing
+User-agent: Bingbot
+Allow: /
+
+# Sitemap location
+Sitemap: https://itsanjali2410.github.io/sadguruEstate/sitemap.xml
+
+# Crawl delay (optional)
+Crawl-delay: 1

@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MapPin, Phone, Mail, Clock, Send, MessageSquare, User, Home, Instagram, Facebook, Twitter, Linkedin } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Send, MessageSquare, User, Home, Instagram, Facebook, Twitter, Linkedin, AlertCircle, Loader } from 'lucide-react';
+import { useSEO } from '../hooks/useSEO';
+import { PAGE_SEO } from '../utils/seoUtils';
+import { sendEmailViaFormspree, logFormSubmission } from '../services/emailService';
 
 const ContactPage = () => {
+  useSEO(PAGE_SEO.contact);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
@@ -12,20 +16,59 @@ const ContactPage = () => {
     propertyType: '',
     message: ''
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    // Reset form and navigate to thank you page
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      location: '',
-      propertyType: '',
-      message: ''
-    });
-    navigate('/thank-you');
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      // Log submission for analytics
+      logFormSubmission({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        location: formData.location,
+        propertyType: formData.propertyType,
+        message: formData.message,
+        formType: 'contact'
+      });
+
+      // Send email via Formspree
+      const result = await sendEmailViaFormspree({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        location: formData.location,
+        propertyType: formData.propertyType,
+        message: formData.message,
+        formType: 'contact'
+      });
+
+      if (!result.success) {
+        setError(result.message || 'Failed to send message. Please try again.');
+        setIsLoading(false);
+        return;
+      }
+
+      // Reset form and navigate to thank you page
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        location: '',
+        propertyType: '',
+        message: ''
+      });
+
+      navigate('/thank-you');
+    } catch (err) {
+      console.error('Form submission error:', err);
+      setError('Failed to send message. Please try again.');
+      setIsLoading(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -52,7 +95,14 @@ const ContactPage = () => {
           {/* Contact Form */}
           <div className="bg-white rounded-2xl shadow-xl p-8">
             <h2 className="text-3xl font-semibold text-gray-900 mb-6">Send us a Message</h2>
-            
+
+            {error && (
+              <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3">
+                <AlertCircle className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
+                <p className="text-red-700">{error}</p>
+              </div>
+            )}
+
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
@@ -174,10 +224,20 @@ const ContactPage = () => {
 
               <button
                 type="submit"
-                className="w-full bg-primary text-white py-4 px-6 rounded-lg hover:bg-primary-dark transition-colors font-medium flex items-center justify-center space-x-2"
+                disabled={isLoading}
+                className="w-full bg-primary text-white py-4 px-6 rounded-lg hover:bg-primary-dark transition-colors font-medium flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <Send className="h-5 w-5" />
-                <span>Send Message</span>
+                {isLoading ? (
+                  <>
+                    <Loader className="h-5 w-5 animate-spin" />
+                    <span>Sending...</span>
+                  </>
+                ) : (
+                  <>
+                    <Send className="h-5 w-5" />
+                    <span>Send Message</span>
+                  </>
+                )}
               </button>
             </form>
           </div>

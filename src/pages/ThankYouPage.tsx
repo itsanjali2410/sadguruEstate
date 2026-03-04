@@ -1,7 +1,14 @@
 import { Link } from 'react-router-dom';
 import { CheckCircle, Home, ArrowRight } from 'lucide-react';
+import { useSEO } from '../hooks/useSEO';
 
 const ThankYouPage = () => {
+  useSEO({
+    title: 'Thank You | Sadguru Estate',
+    description: 'Thank you for contacting Sadguru Estate. Our team will get back to you soon.',
+    keywords: 'thank you, contact confirmation'
+  });
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center px-4">
       <div className="max-w-md w-full text-center">

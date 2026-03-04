@@ -7,8 +7,13 @@ import AboutUs from '../components/AboutUs';
 import Testimonials from '../components/Testimonials';
 import CallToAction from '../components/CallToAction';
 import PopupForm from '../components/PopupForm';
+import { useSEO } from '../hooks/useSEO';
+import { PAGE_SEO } from '../utils/seoUtils';
 
 const HomePage = () => {
+  // SEO Optimization
+  useSEO(PAGE_SEO.home);
+
   const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {

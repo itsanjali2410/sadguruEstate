@@ -4,12 +4,22 @@ import { Search, Filter, MapPin, Eye } from 'lucide-react';
 import PopupForm from '../components/PopupForm';
 import StaticContactForm from '../components/StaticContactForm';
 import { properties, locations, propertyTypes, developers, Property } from '../data/properties';
+import { useSEO } from '../hooks/useSEO';
+import { PAGE_SEO } from '../utils/seoUtils';
 
 const PropertiesPage = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const [showFilters, setShowFilters] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+
+  // Dynamic SEO based on page type
+  const propertyType = searchParams.get('type');
+  const seoData = propertyType === 'buy' ? PAGE_SEO.buy :
+                  propertyType === 'rent' ? PAGE_SEO.rent :
+                  propertyType === 'commercial' ? PAGE_SEO.commercial :
+                  PAGE_SEO.properties;
+  useSEO(seoData);
   const [filters, setFilters] = useState({
     location: '',
     priceRange: [0, 10000000],
