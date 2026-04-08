@@ -3,7 +3,7 @@ import { MessageCircle, Phone, Mail, ArrowRight, CheckCircle, Home } from 'lucid
 
 const CallToAction = () => {
   return (
-    <section className="py-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
+    <section className="py-10 sm:py-16 lg:py-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-40">
         <div className="w-full h-full" style={{
@@ -13,7 +13,7 @@ const CallToAction = () => {
       </div>
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           
           {/* Left Content */}
           <div className="text-white">
@@ -22,11 +22,11 @@ const CallToAction = () => {
                 <Home className="h-4 w-4 mr-2" />
                 Ready to Make a Move?
               </span>
-              <h2 className="text-4xl lg:text-5xl font-semibold leading-tight mb-6">
+              <h2 className="text-2xl sm:text-3xl lg:text-5xl font-semibold leading-tight mb-4 sm:mb-6">
                 Let's Find Your
                 <span className="block text-primary-light">Perfect Property</span>
               </h2>
-              <p className="text-xl text-gray-300 leading-relaxed mb-8">
+              <p className="text-sm sm:text-base lg:text-xl text-gray-300 leading-relaxed mb-6 sm:mb-8">
                 Our expert team is here to guide you through every step of your property journey. 
                 From initial consultation to final possession, we ensure a seamless experience.
               </p>
@@ -56,7 +56,7 @@ const CallToAction = () => {
             <div className="flex flex-col sm:flex-row gap-4">
               <Link 
                 to="/contact"
-                className="bg-primary hover:bg-amber-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 flex items-center justify-center space-x-3 shadow-lg hover:shadow-xl group"
+                className="bg-primary hover:bg-amber-700 text-white px-5 py-3 sm:px-8 sm:py-4 rounded-xl font-semibold text-base sm:text-lg transition-all duration-300 flex items-center justify-center space-x-3 shadow-lg hover:shadow-xl group"
               >
                 <MessageCircle className="h-6 w-6" />
                 <span>Talk to an Expert</span>
@@ -65,7 +65,7 @@ const CallToAction = () => {
               
               <a 
                 href="tel:+919876543210"
-                className="bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 flex items-center justify-center space-x-3 border border-white/20 hover:border-white/40"
+                className="bg-white/10 hover:bg-white/20 text-white px-5 py-3 sm:px-8 sm:py-4 rounded-xl font-semibold text-base sm:text-lg transition-all duration-300 flex items-center justify-center space-x-3 border border-white/20 hover:border-white/40"
               >
                 <Phone className="h-6 w-6" />
                 <span>Call Now</span>
@@ -75,12 +75,12 @@ const CallToAction = () => {
 
           {/* Right Content - Contact Card */}
           <div className="relative">
-            <div className="bg-white rounded-2xl shadow-2xl p-8 relative">
-              <div className="text-center mb-8">
-                <div className="w-20 h-20 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <MessageCircle className="h-10 w-10 text-primary" />
+            <div className="bg-white rounded-2xl shadow-2xl p-5 sm:p-8 relative">
+              <div className="text-center mb-6 sm:mb-8">
+                <div className="w-14 h-14 sm:w-20 sm:h-20 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <MessageCircle className="h-7 w-7 sm:h-10 sm:w-10 text-primary" />
                 </div>
-                <h3 className="text-2xl font-semibold text-gray-900 mb-2">Get Expert Advice</h3>
+                <h3 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-2">Get Expert Advice</h3>
                 <p className="text-gray-600">Our property experts are ready to help you find the perfect home</p>
               </div>
 

@@ -70,23 +70,23 @@ const Testimonials = () => {
   };
 
   return (
-    <section className="py-16 bg-amber-50">
+    <section className="py-10 sm:py-16 bg-amber-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-semibold text-gray-900 mb-4">What Our Clients Say</h2>
-          <p className="text-xl text-gray-600">Real experiences from satisfied customers</p>
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-gray-900 mb-2 sm:mb-4">What Our Clients Say</h2>
+          <p className="text-sm sm:text-base lg:text-xl text-gray-600">Real experiences from satisfied customers</p>
         </div>
 
         <div className="relative max-w-4xl mx-auto">
-          <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
+          <div className="bg-white rounded-2xl shadow-xl p-5 sm:p-8 md:p-12">
             <div className="text-center">
               {/* Initials Avatar */}
               <div
-                className={`w-20 h-20 rounded-full mx-auto mb-6 flex items-center justify-center ${getAvatarColor(
+                className={`w-14 h-14 sm:w-20 sm:h-20 rounded-full mx-auto mb-4 sm:mb-6 flex items-center justify-center ${getAvatarColor(
                   testimonials[currentSlide].name
                 )}`}
               >
-                <span className="text-white font-bold text-2xl">
+                <span className="text-white font-bold text-lg sm:text-2xl">
                   {getInitials(testimonials[currentSlide].name)}
                 </span>
               </div>
@@ -100,12 +100,12 @@ const Testimonials = () => {
                 ))}
               </div>
 
-              <blockquote className="text-xl md:text-2xl text-gray-700 italic mb-6 leading-relaxed">
+              <blockquote className="text-sm sm:text-lg md:text-2xl text-gray-700 italic mb-4 sm:mb-6 leading-relaxed">
                 "{testimonials[currentSlide].quote}"
               </blockquote>
 
               <div>
-                <h4 className="text-xl font-semibold text-gray-900">
+                <h4 className="text-base sm:text-xl font-semibold text-gray-900">
                   {testimonials[currentSlide].name}
                 </h4>
                 <p className="text-gray-600">{testimonials[currentSlide].location}</p>
@@ -116,16 +116,16 @@ const Testimonials = () => {
           {/* Navigation Buttons */}
           <button
             onClick={prevSlide}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-shadow"
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-2 sm:-translate-x-4 bg-white rounded-full p-2 sm:p-3 shadow-lg hover:shadow-xl transition-shadow z-10"
           >
-            <ChevronLeft className="h-6 w-6 text-gray-600" />
+            <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6 text-gray-600" />
           </button>
 
           <button
             onClick={nextSlide}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-shadow"
+            className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-2 sm:translate-x-4 bg-white rounded-full p-2 sm:p-3 shadow-lg hover:shadow-xl transition-shadow z-10"
           >
-            <ChevronRight className="h-6 w-6 text-gray-600" />
+            <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6 text-gray-600" />
           </button>
 
           {/* Dots Indicator */}

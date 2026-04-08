@@ -27,24 +27,24 @@ const AboutUs = () => {
   ];
 
   return (
-    <section className="py-16 bg-white">
+    <section className="py-10 sm:py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-semibold text-gray-900 mb-4">About Sadguru Estate</h2>
+        <div className="text-center mb-10 sm:mb-16">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-gray-900 mb-4">About Sadguru Estate</h2>
           
         </div>
 
         {/* Stats Section */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 mb-10 sm:mb-16">
           {stats.map((stat, index) => {
             const IconComponent = stat.icon;
             return (
               <div key={index} className="text-center">
-                <div className="bg-primary w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <IconComponent className="h-8 w-8 text-white" />
+                <div className="bg-primary w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                  <IconComponent className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
                 </div>
-                <div className="text-3xl font-semibold text-gray-900 mb-2">{stat.number}</div>
-                <div className="text-gray-600">{stat.label}</div>
+                <div className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-1 sm:mb-2">{stat.number}</div>
+                <div className="text-sm sm:text-base text-gray-600">{stat.label}</div>
               </div>
             );
           })}
@@ -87,9 +87,9 @@ const AboutUs = () => {
         </div> */}
 
         {/* Our Commitment */}
-        <div className="bg-gray-900 text-white rounded-3xl p-12 text-center">
-          <h3 className="text-3xl font-semibold mb-6">Our Commitment</h3>
-          <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+        <div className="bg-gray-900 text-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-12 text-center">
+          <h3 className="text-xl sm:text-2xl lg:text-3xl font-semibold mb-4 sm:mb-6">Our Commitment</h3>
+          <p className="text-sm sm:text-base lg:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
             We are committed to delivering premium residential, commercial, and plot projects across Navi Mumbai. With a focus on quality, transparency, and timely delivery, we help you find the perfect space to live or invest.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">

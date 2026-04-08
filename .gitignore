@@ -24,3 +24,7 @@ dist-ssr
 *.sw?
 .env
 .vercel
+*.mp4
+*.pdf
+public/videos/
+Sadguru Estates - Content & Images/

@@ -381,6 +381,7 @@ interface AppConfig {
   font?: string;
   scrollSpeed?: number;
   scrollEase?: number;
+  onItemClick?: (index: number) => void;
 }
 
 class App {
@@ -409,10 +410,12 @@ class App {
   boundOnWheel!: (e: Event) => void;
   boundOnTouchDown!: (e: MouseEvent | TouchEvent) => void;
   boundOnTouchMove!: (e: MouseEvent | TouchEvent) => void;
-  boundOnTouchUp!: () => void;
+  boundOnTouchUp!: (e: MouseEvent | TouchEvent) => void;
 
   isDown: boolean = false;
   start: number = 0;
+  startY: number = 0;
+  onItemClick?: (index: number) => void;
 
   constructor(
     container: HTMLElement,
@@ -423,7 +426,8 @@ class App {
       borderRadius = 0,
       font = 'bold 30px Figtree',
       scrollSpeed = 2,
-      scrollEase = 0.05
+      scrollEase = 0.05,
+      onItemClick
     }: AppConfig
   ) {
     document.documentElement.classList.remove('no-js');
@@ -431,6 +435,7 @@ class App {
     this.scrollSpeed = scrollSpeed;
     this.scroll = { ease: scrollEase, current: 0, target: 0, last: 0 };
     this.onCheckDebounce = debounce(this.onCheck.bind(this), 200);
+    this.onItemClick = onItemClick;
     this.createRenderer();
     this.createCamera();
     this.createScene();
@@ -552,6 +557,7 @@ class App {
     this.isDown = true;
     this.scroll.position = this.scroll.current;
     this.start = 'touches' in e ? e.touches[0].clientX : e.clientX;
+    this.startY = 'touches' in e ? e.touches[0].clientY : e.clientY;
   }
 
   onTouchMove(e: MouseEvent | TouchEvent) {
@@ -561,8 +567,31 @@ class App {
     this.scroll.target = (this.scroll.position ?? 0) + distance;
   }
 
-  onTouchUp() {
+  onTouchUp(e: MouseEvent | TouchEvent) {
+    if (!this.isDown) return;
     this.isDown = false;
+
+    // Detect click vs drag: if mouse barely moved, it's a click
+    const endX = 'changedTouches' in e ? e.changedTouches[0].clientX : e.clientX;
+    const endY = 'changedTouches' in e ? e.changedTouches[0].clientY : e.clientY;
+    const dx = Math.abs(endX - this.start);
+    const dy = Math.abs(endY - this.startY);
+
+    if (dx < 5 && dy < 5 && this.onItemClick && this.medias.length > 0) {
+      // Find the item closest to center of viewport
+      let closestIndex = 0;
+      let closestDist = Infinity;
+      const itemCount = this.mediasImages.length / 2; // items are doubled
+      for (let i = 0; i < this.medias.length; i++) {
+        const dist = Math.abs(this.medias[i].plane.position.x);
+        if (dist < closestDist) {
+          closestDist = dist;
+          closestIndex = i % itemCount;
+        }
+      }
+      this.onItemClick(closestIndex);
+    }
+
     this.onCheck();
   }
 
@@ -652,6 +681,7 @@ interface CircularGalleryProps {
   font?: string;
   scrollSpeed?: number;
   scrollEase?: number;
+  onItemClick?: (index: number) => void;
 }
 
 export default function CircularGallery({
@@ -661,9 +691,13 @@ export default function CircularGallery({
   borderRadius = 0.05,
   font = 'bold 30px Figtree',
   scrollSpeed = 2,
-  scrollEase = 0.05
+  scrollEase = 0.05,
+  onItemClick
 }: CircularGalleryProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const onItemClickRef = useRef(onItemClick);
+  onItemClickRef.current = onItemClick;
+
   useEffect(() => {
     if (!containerRef.current) return;
     const app = new App(containerRef.current, {
@@ -673,7 +707,8 @@ export default function CircularGallery({
       borderRadius,
       font,
       scrollSpeed,
-      scrollEase
+      scrollEase,
+      onItemClick: (index: number) => onItemClickRef.current?.(index)
     });
     return () => {
       app.destroy();

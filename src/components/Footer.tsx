@@ -1,17 +1,17 @@
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
+import { Mail, Phone, MapPin, Instagram } from 'lucide-react';
 
 const Footer = () => {
   return (
     <footer className="bg-gray-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
           {/* Company Info */}
-          <div className="col-span-1 md:col-span-2">
-            <img 
-              src="/sadguru_logo.png" 
-              alt="Sadguru Estate" 
-              className="h-12 w-auto mb-4 bg-white p-2 rounded"
+          <div className="col-span-1 sm:col-span-2">
+            <img
+              src="/sadguru_logo.png"
+              alt="Sadguru Estate"
+              className="h-10 sm:h-12 w-auto mb-4 bg-white p-2 rounded"
             />
             <p className="text-gray-300 mb-6 leading-relaxed">
               We are committed to delivering premium residential, commercial, and plot projects across Navi Mumbai. With a focus on quality, transparency, and timely delivery, we help you find the perfect space to live or invest.
@@ -67,21 +67,12 @@ const Footer = () => {
         {/* Social Media & Copyright */}
         <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <div className="flex space-x-6 mb-4 md:mb-0">
-            <a href="#" className="text-gray-400 hover:text-primary-light transition-colors">
-              <Facebook className="h-6 w-6" />
-            </a>
-            <a href="#" className="text-gray-400 hover:text-primary-light transition-colors">
-              <Twitter className="h-6 w-6" />
-            </a>
             <a href="https://www.instagram.com/shree_sadguru_realestate/?igsh=MW1jb3VkOGV3Mmhkbg%3D%3D" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary-light transition-colors">
               <Instagram className="h-6 w-6" />
             </a>
-            <a href="#" className="text-gray-400 hover:text-primary-light transition-colors">
-              <Linkedin className="h-6 w-6" />
-            </a>
           </div>
           <p className="text-gray-400 text-center md:text-right">
-            © 2024 Sadguru Estate. All rights reserved.
+            © 2025 Sadguru Estate. All rights reserved.
           </p>
         </div>
       </div>

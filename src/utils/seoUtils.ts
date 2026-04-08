@@ -116,38 +116,38 @@ export const addStructuredData = (data: any) => {
  */
 export const PAGE_SEO = {
   home: {
-    title: 'Sadguru Estate - Premium Properties in Navi Mumbai | Buy, Rent, Commercial',
-    description: 'Find your dream property with Sadguru Estate. Premium residential, commercial, and rental properties in Navi Mumbai, Panvel, Nerul, Kharghar & more. RERA verified, 24/7 support.',
-    keywords: 'property in navi mumbai, residential properties, commercial spaces, rent apartments, buy property, real estate navi mumbai'
+    title: 'Sadguru Estate - Best Property Dealer in Navi Mumbai | Flats, Shops, Offices',
+    description: 'Sadguru Estate - RERA registered real estate consultant in Ulwe. Buy/Rent 1BHK, 2BHK, 3BHK flats in Panvel, Nerul, Kharghar, Ulwe, Dronagiri. Commercial shops & offices. 30+ verified projects. Call +91 77159 52067.',
+    keywords: 'property in navi mumbai, flat in panvel, 2bhk in ulwe, flat in kharghar, property dealer navi mumbai, buy flat nerul, sadguru estate, new projects navi mumbai 2025'
   },
   properties: {
-    title: 'Properties for Sale & Rent | Sadguru Estate',
-    description: 'Browse premium residential, commercial, and rental properties in Navi Mumbai. Find your dream home with expert guidance and 24/7 support.',
-    keywords: 'properties for sale, properties for rent, real estate listings, navi mumbai properties'
+    title: 'All Properties for Sale & Rent in Navi Mumbai | Sadguru Estate',
+    description: 'Browse 30+ RERA verified flats, shops & offices in Panvel, Nerul, Kharghar, Ulwe, Dronagiri, Taloja. 1BHK from ₹41 Lakhs. Expert guidance & site visits.',
+    keywords: 'properties in navi mumbai, flats for sale panvel, apartments nerul, property listing ulwe, real estate kharghar, new launch navi mumbai'
   },
   buy: {
-    title: 'Properties for Buy | Sadguru Estate',
-    description: 'Buy premium residential properties in Navi Mumbai. Explore RERA verified projects with modern amenities. Get expert guidance today.',
-    keywords: 'buy property, residential properties, navi mumbai buy, real estate investment'
+    title: 'Buy Flats & Apartments in Navi Mumbai | ₹41 Lakhs Onwards | Sadguru Estate',
+    description: 'Buy 1BHK, 2BHK, 3BHK flats in Panvel, Nerul, Kharghar, Ulwe from ₹41 Lakhs. RERA verified new & ready possession projects. Free site visits. Call +91 77159 52067.',
+    keywords: 'buy flat panvel, 1bhk panvel price, 2bhk kharghar, buy property ulwe, new flats nerul, under construction flats navi mumbai, ready possession flat, affordable flat navi mumbai'
   },
   rent: {
-    title: 'Properties for Rent in Navi Mumbai | Sadguru Estate',
-    description: 'Find rental apartments and villas in Navi Mumbai. Fully furnished, modern properties with 24/7 support. Start your home search today.',
-    keywords: 'properties for rent, rental apartments, rental villas, navi mumbai rent'
+    title: 'Rent Flats & Apartments in Navi Mumbai | Sadguru Estate',
+    description: 'Rent furnished & semi-furnished 1BHK, 2BHK, 3BHK apartments in Navi Mumbai. Properties near railway stations in Panvel, Nerul, Kharghar, Ulwe. Immediate move-in.',
+    keywords: 'rent flat navi mumbai, rental apartment panvel, 2bhk for rent kharghar, furnished flat nerul rent, pg in ulwe, flat on rent near railway station navi mumbai'
   },
   commercial: {
-    title: 'Commercial Properties & Office Spaces | Sadguru Estate',
-    description: 'Invest in premium commercial spaces and office properties in Navi Mumbai. High returns, RERA verified projects.',
-    keywords: 'commercial properties, office spaces, retail shops, navi mumbai commercial'
+    title: 'Commercial Shops & Office Spaces in Navi Mumbai | Sadguru Estate',
+    description: 'Invest in RERA verified commercial shops, office spaces & retail properties in Belapur, Nerul, Panvel. Premium locations with high rental returns. Starting ₹42 Lakhs.',
+    keywords: 'commercial property navi mumbai, office space belapur, shop for sale panvel, retail space nerul, commercial investment navi mumbai, office on rent navi mumbai'
   },
   contact: {
-    title: 'Contact Sadguru Estate | Real Estate Support',
-    description: 'Get in touch with Sadguru Estate. Our expert team is available 24/7 to help you find your perfect property.',
-    keywords: 'contact real estate, sadguru estate contact, property inquiry'
+    title: 'Contact Sadguru Estate | Property Dealer Ulwe Navi Mumbai | +91 77159 52067',
+    description: 'Contact Sadguru Estate at Shop No 03, Reddy\'s Crown, Sector 24, Ulwe 410206. Call +91 77159 52067 or +91 84529 66053. Mon-Sat 9AM-7PM, Sun 10AM-5PM. Free property consultation.',
+    keywords: 'sadguru estate contact, property dealer ulwe, real estate consultant navi mumbai, property inquiry navi mumbai'
   },
   about: {
-    title: 'About Sadguru Estate | Premium Real Estate',
-    description: 'Learn about Sadguru Estate - your trusted partner for premium residential and commercial properties in Navi Mumbai.',
-    keywords: 'about sadguru estate, real estate company, property developer'
+    title: 'About Sadguru Estate | Trusted Real Estate Consultant Since Day 1 | Navi Mumbai',
+    description: 'Sadguru Estate is a RERA registered (Maha RERA A51700002627) real estate consultancy in Ulwe, Navi Mumbai. 30+ verified projects, 500+ happy families, expert property guidance across Panvel, Nerul, Kharghar.',
+    keywords: 'about sadguru estate, RERA registered agent navi mumbai, trusted property dealer ulwe, real estate company navi mumbai'
   }
 };

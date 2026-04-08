@@ -81,20 +81,20 @@ const ContactPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-primary to-primary-dark text-white py-16">
+      <div className="bg-gradient-to-r from-primary to-primary-dark text-white py-10 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-semibold mb-4">Get in Touch</h1>
-          <p className="text-xl text-white-light max-w-2xl mx-auto ">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-semibold mb-2 sm:mb-4">Get in Touch</h1>
+          <p className="text-sm sm:text-base lg:text-xl text-white-light max-w-2xl mx-auto">
             Ready to find your dream property? Our experts are here to help you every step of the way.
           </p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 lg:gap-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 lg:gap-16">
           {/* Contact Form */}
-          <div className="bg-white rounded-2xl shadow-xl p-8">
-            <h2 className="text-3xl font-semibold text-gray-900 mb-6">Send us a Message</h2>
+          <div className="bg-white rounded-2xl shadow-xl p-5 sm:p-8">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-900 mb-4 sm:mb-6">Send us a Message</h2>
 
             {error && (
               <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3">
@@ -245,8 +245,8 @@ const ContactPage = () => {
           {/* Contact Information */}
           <div className="space-y-8">
             {/* Company Info */}
-            <div className="bg-white rounded-2xl shadow-xl p-8">
-              <h3 className="text-2xl font-semibold text-gray-900 mb-6">Contact Information</h3>
+            <div className="bg-white rounded-2xl shadow-xl p-5 sm:p-8">
+              <h3 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6">Contact Information</h3>
               
               <div className="space-y-6">
                 <div className="flex items-start space-x-4">
@@ -324,9 +324,9 @@ const ContactPage = () => {
 
 
             {/* Map */}
-            <div className="bg-white rounded-2xl shadow-xl p-8">
-              <h3 className="text-2xl font-semibold text-gray-900 mb-6">Find Us</h3>
-              <div className="bg-gray-200 h-64 rounded-lg flex items-center justify-center">
+            <div className="bg-white rounded-2xl shadow-xl p-5 sm:p-8">
+              <h3 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6">Find Us</h3>
+              <div className="bg-gray-200 h-48 sm:h-56 md:h-64 rounded-lg flex items-center justify-center">
                 <div className="text-center">
                   <MapPin className="h-12 w-12 text-gray-400 mx-auto mb-2" />
                   <p className="text-gray-500">Interactive Google Map</p>

@@ -16,6 +16,7 @@ export interface Property {
   amenities: string[];
   description: string;
   image: string;
+  gallery?: string[];
   video?: string; // Optional video field
   links?: {
     label: string;
@@ -60,7 +61,7 @@ export const properties: Property[] = [
       "Jogging track"
     ],
     description: "New Township of Luxurious 1 BHK & 2 BHK Residences with all modern amenities at exciting price at Giravale Panvel.",
-    image: "/homeimage.png",
+    image: "/properties/today-global-developers.webp",
     video: "today_global_developer", // Video reference
     configurations: [
       {
@@ -103,7 +104,10 @@ export const properties: Property[] = [
       "Rain Water Harvesting"
     ],
     description: "NMS Midas offers multiple investment options in varied budget range. Located in Belapur, Navi Mumbai with excellent connectivity and modern amenities.",
-    image: "/office_spaces/nms.jpg",
+    image: "/properties/nms-midas.webp",
+    gallery: [
+      "/properties/gallery/nms-midas-1/1.webp"
+    ],
     configurations: [
       {
         type: "Shop",
@@ -178,12 +182,12 @@ export const properties: Property[] = [
     ]
   },
 
-  // EMPERIA ICON - Nerul
+  // EMPERIA ICON - Nerul (Plot D-113, TTC Industrial Area)
   {
     id: "emperia-icon-1",
     name: "EMPERIA ICON",
-    developer: "Emperia Icon",
-    location: "Nerul, Navi Mumbai",
+    developer: "Emperia Projects",
+    location: "Plot D-113, TTC Industrial Area, Nerul, Navi Mumbai",
     type: "Office Spaces",
     category: "commercial",
     price: "₹42 Lakhs+",
@@ -193,18 +197,22 @@ export const properties: Property[] = [
     featured: true,
     verified: true,
     amenities: [
+      "Commercial IT Complex",
+      "Double Height Entrance Lobby",
+      "Multiple Lifts (6+ elevators)",
+      "Fire Fighting Systems with Fire Lifts",
+      "Fire Towers & Staircases",
+      "9M Wide Fire Drive Way",
+      "Ample Basement Parking (100+ spaces)",
+      "Service Corridors",
       "The first & only Hotel Offices with international hospitality attached",
-      "In Nerul, Navi Mumbai, Opposite D Y Patil Stadium 10 mins",
-      "Leasing Assistance available for early investors",
-      "Special booking price: INR 99,999/-",
-      "Safe investment: full CC received",
-      "3X Rental Yields over residential real estate",
-      "Higher returns with the mixed-used development advantage",
-      "The Navi Mumbai Impact of great infra",
-      "Commercial real estate investment ensures steady cash flow due to longer-term"
+      "Opposite D Y Patil Stadium (10 mins)",
+      "Leasing Assistance for early investors",
+      "Full CC Received - Safe Investment",
+      "3X Rental Yields over residential real estate"
     ],
-    description: "Office Spaces with CC Received at the centrally connected address of Nerul by Emperia Icon. Invest in Luxury Offices for 3X Return on your investment. Office Spaces Starting at ₹42 Lakhs+",
-    image: "/Emperia-icon.png",
+    description: "Emperia Icon - Commercial IT Complex at Plot D-113, TTC Industrial Area, Nerul. Office Spaces with CC Received featuring double height entrance lobby, multiple lifts, fire safety systems, and ample parking. Invest in luxury offices for 3X return on investment. Starting at ₹42 Lakhs+.",
+    image: "/properties/emperia-icon.webp",
     configurations: [
       {
         type: "Office Space",
@@ -242,7 +250,7 @@ export const properties: Property[] = [
       "Parking facilities"
     ],
     description: "Premium residential project with 1.5, 2, and 2.5 BHK configurations. All prices are negotiable.",
-    image: "https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
+    image: "/properties/raheja-lunaris.webp",
     configurations: [
       {
         type: "1.5 BHK",
@@ -262,48 +270,75 @@ export const properties: Property[] = [
     ]
   },
 
-  // Raheja Jade City
+  // Raheja Jade City - Tower 11 (KRC)
   {
     id: "raheja-jade-city-1",
     name: "Raheja Jade City",
-    developer: "Raheja Developers",
-    location: "Nerul",
+    developer: "K Raheja Corp (Newfound Properties and Leasing Pvt Ltd)",
+    location: "Juinagar, Navi Mumbai",
     type: "Residential",
     category: "buy",
     price: "₹1.12 Cr+",
-    size: "450-662 sqft",
+    size: "556-1068 sqft",
+    carpetArea: "556-1068 sqft",
     possession: "Under Construction",
-    status: "",
-    featured: false,
+    status: "MahaRERA: P51700080277",
+    featured: true,
     verified: true,
     amenities: [
-      "Premium finishes",
-      "Modern amenities",
-      "Security system",
-      "Parking facilities"
+      "Fully Integrated Community - Live-Work-Learn-Play",
+      "Surrounded by Parsik Hills & Central Greens",
+      "70% Open Spaces",
+      "Vehicle Free Eco-Deck Level",
+      "Imposing Double Height Entrance Lobby",
+      "Spa & Sports Facilities",
+      "Walk to Work - Mindspace Juinagar",
+      "Off Sion-Panvel Highway & Thane-Belapur Road",
+      "Near DY Patil University (950m)",
+      "Juinagar Railway Station (2.4 km)",
+      "Navi Mumbai Metro Phase 1",
+      "Near BKC 2.0 & Navi Mumbai International Airport"
     ],
-    description: "Premium residential project with 1 and 2 BHK configurations. All prices are inclusive.",
-    image: "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
+    description: "Raheja Jade City by K Raheja Corp - A fully integrated community offering holistic living with 70% open spaces, surrounded by Parsik hills and cityscape. Thoughtfully planned 2 & 3 BHK residences with decks, vehicle-free eco-deck level, and a plethora of lifestyle amenities. MahaRERA Registered: P51700080277.",
+    image: "/properties/raheja-jade-city.webp",
+    gallery: [
+      "/properties/gallery/krc-residency/1.webp",
+      "/properties/gallery/krc-residency/2.webp",
+      "/properties/gallery/krc-residency/3.webp",
+      "/properties/gallery/krc-residency/4.webp",
+      "/properties/gallery/krc-residency/5.webp",
+      "/properties/gallery/krc-residency/6.webp"
+    ],
     configurations: [
       {
-        type: "1 BHK",
-        size: "450 sqft",
+        type: "2 BHK ELITE",
+        size: "556 sqft carpet (663 sqft total)",
         price: "₹1.12-1.15 Cr (All inclusive)"
       },
       {
-        type: "2 BHK",
-        size: "662 sqft",
+        type: "2 BHK REGAL",
+        size: "599 sqft carpet (708 sqft total)",
+        price: "₹1.15-1.30 Cr (All inclusive)"
+      },
+      {
+        type: "2 BHK SUPREME",
+        size: "739 sqft carpet (804 sqft total)",
         price: "₹1.53-1.64 Cr (All inclusive)"
+      },
+      {
+        type: "3 BHK",
+        size: "1068 sqft carpet (1148 sqft total)",
+        price: "Contact for pricing"
       }
     ]
   },
 
-  // Continental World
+  // Continental Signature - Nerul
   {
     id: "continental-world-1",
-    name: "Continental World",
-    developer: "Continental Developers",
-    location: "Nerul",
+    name: "Continental Signature",
+    developer: "Sacvir Realtors LLP",
+    location: "Sector 17, Nerul, Navi Mumbai",
     type: "Residential",
     category: "buy",
     price: "₹2.55 Cr+",
@@ -314,14 +349,38 @@ export const properties: Property[] = [
     featured: true,
     verified: true,
     amenities: [
-      "Premium finishes",
-      "Modern amenities",
-      "Security system",
-      "Parking facilities",
-      "Garden area"
+      "Magnificent 24 Floors Residential Tower",
+      "Vastu Compliant Luxurious Homes",
+      "15+ Podium Landscape Lifestyle Facilities",
+      "10+ Sky-High Luxury Living Amenities",
+      "3 Tier 24x7 Security with CCTV Surveillance",
+      "Six Levels of Convenient Parking",
+      "Swimming Pool with Wooden Deck",
+      "Turf (Net Cricket)",
+      "Kids Play Area",
+      "Amphitheatre",
+      "Fitness Centre",
+      "Indoor Games",
+      "Outdoor Games",
+      "Party Lawn",
+      "Cabana & Hammock Seating",
+      "Bar Counter with Seating Area",
+      "Reflexology Pathway",
+      "Jogging Track",
+      "Water Fountain",
+      "Leisure Deck",
+      "Swing Plaza",
+      "Gazebo Seating",
+      "Creche"
     ],
-    description: "Premium 3 BHK apartments with three area variants. Prices plus SDR & GST.",
-    image: "/sai_world_city.png",
+    description: "Continental Signature Premium Residences at Nerul's prime locale. A magnificent 24-floor residential tower with vastu compliant luxurious homes, 25+ lifestyle avenues across podium & rooftop levels, designer podium landscape, and curated lifestyle facilities. Seamlessly connected to Nerul Railway Station (900m), DY Patil University (1 km), and Navi Mumbai International Airport (7.6 km).",
+    image: "/properties/continental-world.webp",
+    gallery: [
+      "/properties/gallery/continental-world-1/3.webp",
+      "/properties/gallery/continental-world-1/4.webp",
+      "/properties/gallery/continental-world-1/5.webp",
+      "/properties/gallery/continental-world-1/6.webp"
+    ],
     configurations: [
       {
         type: "3 BHK",
@@ -364,7 +423,7 @@ export const properties: Property[] = [
       "Parking facilities"
     ],
     description: "Premium 2BHK and 3BHK apartments in Ulwe with spacious layouts.",
-    image: "/sai_world_2.png",
+    image: "/properties/prime-avenue.webp",
     configurations: [
       {
         type: "2 BHK",
@@ -416,7 +475,11 @@ export const properties: Property[] = [
       "Terrace area"
     ],
     description: "Grandeur 2, 3 & 4 bed residences starting from ₹2.20 Cr+. Located at Plot No 7, Sector 29, Nerul.",
-    image: "/sai-developers.png",
+    image: "/properties/platinum-elysium.webp",
+    gallery: [
+      "/properties/gallery/platinum-elysium-1/1.webp",
+      "/properties/gallery/platinum-elysium-1/2.webp"
+    ],
     configurations: [
       {
         type: "2 BHK LUXURIA",
@@ -462,7 +525,7 @@ export const properties: Property[] = [
       "Ample Parking"
     ],
     description: "ONE WORLD. ONE LIFE. A MASTERPIECE UNVEILED IN NERUL. Opposite D.Y. Patil Stadium, Thane - Belapur Rd.",
-    image: "/omkar-regency.png",
+    image: "/properties/sai-world-city-nerul.webp",
     configurations: [
       {
         type: "2 BHK",
@@ -482,10 +545,10 @@ export const properties: Property[] = [
     ]
   },
 
-  // Omkar Regency
+  // Omkar Residency (Regency)
   {
     id: "omkar-regency-1",
-    name: "Omkar Regency",
+    name: "Omkar Residency",
     developer: "Omkar Developers",
     location: "Nerul",
     type: "Residential",
@@ -494,7 +557,7 @@ export const properties: Property[] = [
     size: "757-1054 sqft",
     possession: "December 2026",
     status: "",
-    featured: false,
+    featured: true,
     verified: true,
     amenities: [
       "G+19 Storey Tower",
@@ -509,7 +572,7 @@ export const properties: Property[] = [
       "Kids Play Area"
     ],
     description: "Premium 2 & 3 BHK Deck Residences. RERA & CC Approved. Plot 01, Sector 9, Nerul East.",
-    image: "/Gemini_Generated_Image_e15qlie15qlie15q.png",
+    image: "/properties/omkar-regency.webp",
     configurations: [
       {
         type: "2 BHK",
@@ -524,31 +587,42 @@ export const properties: Property[] = [
     ]
   },
 
-  // Sai World City - Panvel
+  // Sai World City - Panvel (with Club Vegas)
   {
     id: "sai-world-city-panvel-1",
     name: "Sai World City",
     developer: "Paradise Group",
-    location: "Panvel",
+    location: "Palaspe Junction, Panvel",
     type: "Residential Township",
     category: "buy",
-    price: "2 BHK",
+    price: "Contact for pricing",
     size: "38 acres",
     possession: "Under Construction",
     status: "",
     featured: true,
     verified: true,
     amenities: [
-      "38 acres luxury township",
-      "50% open spaces",
-      "13 towers inspired by global cities",
-      "Club Vegas - 75,000 sqft clubhouse",
-      "4-level parking",
-      "50+ amenities",
-      "Schools, hospitals & malls within 10-20 mins"
+      "38 Acres Luxury Township",
+      "50% Open Spaces",
+      "13 Towers Inspired by Global Cities",
+      "Club Vegas - 75,000 sqft Clubhouse",
+      "4-Level Parking",
+      "50+ World-Class Amenities",
+      "Schools, Hospitals & Malls within 10-20 mins",
+      "Near NMIA, MTHL & Major Highways",
+      "Swimming Pool & Fitness Center",
+      "Landscaped Gardens & Walking Tracks"
     ],
-    description: "Luxury township across 38 acres with 50% open spaces. Located at Palaspe Junction, Panvel.",
-    image: "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
+    description: "Sai World City - Luxury township across 38 acres with 50% open spaces at Palaspe Junction, Panvel. Features 13 towers inspired by global cities and Club Vegas, a magnificent 75,000 sqft clubhouse. Excellent connectivity to NMIA, MTHL, and major highways.",
+    image: "/properties/sai-world-city-panvel.webp",
+    gallery: [
+      "/properties/gallery/sai-world-city-panvel-1/1.webp",
+      "/properties/gallery/sai-world-city-panvel-1/2.webp",
+      "/properties/gallery/sai-world-city-panvel-1/3.webp",
+      "/properties/gallery/sai-world-city-panvel-1/4.webp",
+      "/properties/gallery/sai-world-city-panvel-1/5.webp",
+      "/properties/gallery/sai-world-city-panvel-1/6.webp"
+    ],
     configurations: [
       {
         type: "Phase 1",
@@ -589,7 +663,7 @@ export const properties: Property[] = [
       "Maintenance included"
     ],
     description: "Beautiful 2 BHK apartment available for rent in prime location.",
-    image: "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
+    image: "/properties/rental-apartment.webp",
   },
 
   {
@@ -612,7 +686,7 @@ export const properties: Property[] = [
       "Fully furnished"
     ],
     description: "Spacious 3 BHK villa with modern amenities.",
-    image: "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
+    image: "/properties/rental-villa.webp",
   },
 
   // Additional Commercial Properties
@@ -636,7 +710,7 @@ export const properties: Property[] = [
       "High-speed internet"
     ],
     description: "Premium office space in commercial hub.",
-    image: "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
+    image: "/properties/business-hub.webp",
   },
 
   {
@@ -659,7 +733,7 @@ export const properties: Property[] = [
       "Modern infrastructure"
     ],
     description: "Prime retail space in upcoming commercial complex.",
-    image: "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
+    image: "/properties/retail-space.webp",
   },
 
   // Properties from Housing.com listings
@@ -684,7 +758,7 @@ export const properties: Property[] = [
       "Garden area"
     ],
     description: "1 & 2 BHK Flats in Kharghar with average price ₹14.56 K/sq.ft. RERA approved project.",
-    image: "https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
+    image: "/properties/vastu-park.webp",
     configurations: [
       {
         type: "1 BHK",
@@ -719,7 +793,7 @@ export const properties: Property[] = [
       "Parking facilities"
     ],
     description: "1 & 2 BHK Flats in Taloja with average price ₹9.97 K/sq.ft. Zero brokerage project.",
-    image: "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
+    image: "/properties/rudra-kristina.webp",
     configurations: [
       {
         type: "1 BHK",
@@ -755,7 +829,7 @@ export const properties: Property[] = [
       "Clubhouse"
     ],
     description: "1 & 2 BHK Flats in Taloja with average price ₹9.23 K/sq.ft. Zero brokerage project.",
-    image: "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
+    image: "/properties/siddhivinayak-signature-city.webp",
     configurations: [
       {
         type: "1 BHK",
@@ -791,7 +865,7 @@ export const properties: Property[] = [
       "Parking facilities"
     ],
     description: "1 & 2 BHK Flats in Pushpak Nagar with average price ₹11.56 K/sq.ft. Zero brokerage project.",
-    image: "https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
+    image: "/properties/pushpak-pride.webp",
     configurations: [
       {
         type: "1 BHK",
@@ -828,7 +902,7 @@ export const properties: Property[] = [
       "Swimming pool"
     ],
     description: "2, 3 & 4 BHK Flats in Panvel with average price ₹17.15 K/sq.ft. Zero brokerage project.",
-    image: "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
+    image: "/properties/sai-vrindavan.webp",
     configurations: [
       {
         type: "2 BHK",
@@ -869,7 +943,7 @@ export const properties: Property[] = [
       "Clubhouse"
     ],
     description: "1, 2 & 3 BHK Flats in Panvel with average price ₹13.82 K - ₹15.17 K/sq.ft.",
-    image: "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
+    image: "/properties/orchid-castle.webp",
     configurations: [
       {
         type: "1 BHK",
@@ -909,7 +983,7 @@ export const properties: Property[] = [
       "Parking facilities"
     ],
     description: "1 BHK Flat in Pushpak Nagar with average price ₹11.75 K - ₹13.36 K/sq.ft. Zero brokerage project.",
-    image: "https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
+    image: "/properties/ascons-garnet.webp",
     configurations: [
       {
         type: "1 BHK",
@@ -939,7 +1013,7 @@ export const properties: Property[] = [
       "Parking facilities"
     ],
     description: "1 & 2 BHK Flats in Taloja with average price ₹6.76 K - ₹7.2 K/sq.ft. Zero brokerage project.",
-    image: "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
+    image: "/properties/mahaveer-empire.webp",
     configurations: [
       {
         type: "1 BHK",
@@ -975,7 +1049,7 @@ export const properties: Property[] = [
       "Clubhouse"
     ],
     description: "1 & 2 BHK Flats in Pushpak Nagar with average price ₹10.23 K/sq.ft. Zero brokerage project.",
-    image: "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
+    image: "/properties/riu-siddhivinayak-solitaire.webp",
     configurations: [
       {
         type: "1 BHK",
@@ -1011,7 +1085,7 @@ export const properties: Property[] = [
       "Clubhouse"
     ],
     description: "1 & 2 BHK Flats in Ghansoli with average price ₹25.69 K/sq.ft. Zero brokerage project.",
-    image: "https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
+    image: "/properties/gami-telon.webp",
     configurations: [
       {
         type: "1 BHK",
@@ -1047,7 +1121,7 @@ export const properties: Property[] = [
       "Clubhouse"
     ],
     description: "2 & 3 BHK Flats in Nerul. Zero brokerage project with premium amenities.",
-    image: "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
+    image: "/properties/kamdhenu-pinnacle.webp",
     configurations: [
       {
         type: "2 BHK",
@@ -1089,7 +1163,7 @@ export const properties: Property[] = [
       "Landscaped gardens"
     ],
     description: "Premium residential project with 2BHK and 3BHK configurations in Ulwe. Features spacious layouts with excellent connectivity.",
-    image: "/homeimage.png",
+    image: "/properties/prime-avenue.webp",
     configurations: [
       {
         type: "2BHK",
@@ -1146,7 +1220,7 @@ export const properties: Property[] = [
       "Terrace area"
     ],
     description: "Grandeur 2, 3 & 4 bed residences located at Plot No 7, Sector 29, Nerul. Premium luxury homes with terrace areas.",
-    image: "/homeimage.png",
+    image: "/properties/platinum-elysium.webp",
     configurations: [
       {
         type: "2BHK LUXURIA",
@@ -1182,24 +1256,42 @@ export const properties: Property[] = [
     featured: true,
     verified: true,
     amenities: [
+      "Ground + 17 Storey Tower",
       "Swimming Pool",
-      "Clubhouse",
-      "Indoor Games Zone",
-      "Viewing Decks",
+      "Modern Clubhouse",
+      "Gym & Fitness Studio",
+      "Jogging Track & Walking Track",
+      "Meditation Room & Yoga Room",
+      "Sauna Room & Massage Room",
+      "Multipurpose Court",
+      "Reflexology Pathway",
+      "10th Floor Recreational Amenities",
       "Grand Entrance Lobby",
-      "Landscaped Gardens",
-      "Walking and Jogging Tracks",
-      "Kids' Play Area",
-      "Multipurpose Courts",
-      "Themed Gardens",
-      "Senior Citizens' Sitout",
-      "Yoga and Meditation Area",
+      "High Street Retail",
+      "Creche Facility",
+      "Guest Waiting Lounge",
+      "Business Center (24/7)",
+      "Senior Citizen Area",
       "Amphitheatre",
-      "High Street Shopping",
-      "Dedicated Parking Tower"
+      "Rain Water Harvesting",
+      "Solar Energy",
+      "Ample Car Parking",
+      "CCTV Surveillance",
+      "Fire Fighting System",
+      "Digital Security Access",
+      "Video Door Phone",
+      "Power Back Up"
     ],
-    description: "A striking 17-storeyed building with Ground + 1st Commercial and 16 Residential Floors. Exclusive 10th-floor amenities with breathtaking views of Prabalmachi Hills.",
-    image: "/homeimage.png",
+    description: "9 Meraki - A striking Ground + 17 Storey tower with 1 & 2 BHK apartments in Mumbai 3.0 (Third Mumbai). Features exclusive 10th-floor recreational amenities with breathtaking views of Prabalmachi Hills. Strategically located near the upcoming Navi Mumbai International Airport, MTHL, and major infrastructure projects. Smart city living with eco-friendly development and enhanced connectivity.",
+    image: "/properties/9-meraki.webp",
+    gallery: [
+      "/properties/gallery/meraki-panvel-1/1.webp",
+      "/properties/gallery/meraki-panvel-1/2.webp",
+      "/properties/gallery/meraki-panvel-1/3.webp",
+      "/properties/gallery/meraki-panvel-1/4.webp",
+      "/properties/gallery/meraki-panvel-1/5.webp",
+      "/properties/gallery/meraki-panvel-1/6.webp"
+    ],
     configurations: [
       {
         type: "1BHK",
@@ -1255,7 +1347,7 @@ export const properties: Property[] = [
       "Miami, Lloyd, Sentosa, Atlantis towers"
     ],
     description: "Luxury township across 38 acres with 50% open spaces. Located at Palaspe Junction, Panvel with 13 towers inspired by global cities. Excellent connectivity to NMIA, MTHL, and major highways.",
-    image: "/sai_world_city.png",
+    image: "/properties/sai-world-city-panvel.webp",
     configurations: [
       {
         type: "Phase 1 - Marina, Opera, Acropolis (G+27)",
@@ -1302,7 +1394,7 @@ export const properties: Property[] = [
       "Community Hall"
     ],
     description: "Sea Queen Park by National Builders - Premium residential project with G+4 and G+6 Storey buildings across 9 wings. Located in Upper Kharghar, just 5 minutes walking distance from Pendhar Metro Station. Excellent connectivity to Mumbai Pune Expressway, Taloja-Kharghar Bridge, and proposed Navi Mumbai Airport. Close to Mega CIDCO Planned City Kharghar and proposed Mega Commercial Hub (BKC-2) of Navi Mumbai.",
-    image: "/office_spaces/WhatsApp Image 2025-11-22 at 13.36.24.jpeg",
+    image: "/properties/sea-queen-park.webp",
     links: [
       {
         label: "View Location on Google Maps",
@@ -1356,7 +1448,13 @@ export const properties: Property[] = [
       "Creek View"
     ],
     description: "The Oasis By Paradise CHS - A premium residential project on 2.53 acres with 60%+ open green space. G+35 Storey building with 4 flats per floor. First Residential Floor is 90 ft above ground. Vastu-compliant balcony homes with walk-in wardrobes and creek view. Features 1 acre amenities space, 0.5 acres Miyawaki Forest, Zen & Aroma Gardens, swimming pool, and 40+ amenities. IGBC Pre Certified Building with rainwater harvesting, solar panels, and smart lobbies. Approved by ICICI, Axis & other leading banks. Located at Sector 7, Sanpada, opposite Jain Derasar - Sant Tukaram Garden.",
-    image: "/office_spaces/WhatsApp Image 2025-11-22 at 13.36.25.jpeg",
+    image: "/properties/the-oasis-paradise.webp",
+    gallery: [
+      "/properties/gallery/oasis-paradise-chs-1/1.webp",
+      "/properties/gallery/oasis-paradise-chs-1/2.webp",
+      "/properties/gallery/oasis-paradise-chs-1/3.webp",
+      "/properties/gallery/oasis-paradise-chs-1/4.webp"
+    ],
     contact: {
       name: "Sajan Selestien",
       phone: "9867991016"
@@ -1378,19 +1476,197 @@ export const properties: Property[] = [
         price: "Contact for pricing"
       }
     ]
+  },
+
+  // Balaji Sapphire - Nerul
+  {
+    id: "balaji-sapphire-nerul",
+    name: "Balaji Sapphire",
+    developer: "Balaji Developers",
+    location: "Nerul, Navi Mumbai",
+    type: "Residential",
+    category: "buy",
+    price: "Contact for pricing",
+    size: "Contact for details",
+    possession: "Under Construction",
+    status: "",
+    featured: true,
+    verified: true,
+    amenities: [
+      "Premium Residences",
+      "Modern amenities",
+      "Security system",
+      "Parking facilities",
+      "Prime Nerul Location"
+    ],
+    description: "Balaji Sapphire - Premium residential project in Nerul, Navi Mumbai. Contact for detailed pricing and configurations.",
+    image: "/properties/balaji-sapphire-nerul.webp",
+    gallery: [
+      "/properties/gallery/balaji-sapphire-nerul/1.webp",
+      "/properties/gallery/balaji-sapphire-nerul/2.webp",
+      "/properties/gallery/balaji-sapphire-nerul/3.webp",
+      "/properties/gallery/balaji-sapphire-nerul/4.webp",
+      "/properties/gallery/balaji-sapphire-nerul/5.webp",
+      "/properties/gallery/balaji-sapphire-nerul/6.webp"
+    ],
+    configurations: [
+      {
+        type: "Contact for details",
+        size: "Contact for details",
+        price: "Contact for pricing"
+      }
+    ]
+  },
+
+  // Cyber Square - Sanpada (Kavita Greenscape)
+  {
+    id: "cyber-square-sanpada",
+    name: "Cyber Square",
+    developer: "Kavita Greenscape",
+    location: "Plot D-102/103/104, TTC Industrial Area, Sanpada, Navi Mumbai",
+    type: "Commercial",
+    category: "commercial",
+    price: "Contact for pricing",
+    size: "661-927 sqft",
+    possession: "Under Construction",
+    status: "",
+    featured: true,
+    verified: true,
+    amenities: [
+      "Mixed-Use Development",
+      "Retail Spaces (Ground Floor)",
+      "Commercial Offices",
+      "Lift Access",
+      "Ample Parking",
+      "Terrace",
+      "Prime Sanpada Location",
+      "Near Palm Beach Road"
+    ],
+    description: "Cyber Square - Proposed mixed-use development by Kavita Greenscape at Sanpada, Navi Mumbai. Features retail shops (661-927 sqft) on ground floor and commercial office spaces on upper floors. Strategically located in TTC Industrial Area near Palm Beach Road.",
+    image: "/properties/cyber-square.webp",
+    gallery: [
+      "/properties/gallery/cyber-square/1.webp",
+      "/properties/gallery/cyber-square/2.webp",
+      "/properties/gallery/cyber-square/3.webp"
+    ],
+    configurations: [
+      {
+        type: "Retail Shop",
+        size: "661-780 sqft",
+        price: "Contact for pricing"
+      },
+      {
+        type: "Retail Shop",
+        size: "725-927 sqft",
+        price: "Contact for pricing"
+      },
+      {
+        type: "Office Space",
+        size: "Contact for details",
+        price: "Contact for pricing"
+      }
+    ]
+  },
+
+  // Varsha Group
+  {
+    id: "varsha-group",
+    name: "Varsha Group",
+    developer: "Varsha Group",
+    location: "Navi Mumbai",
+    type: "Residential",
+    category: "buy",
+    price: "Contact for pricing",
+    size: "Contact for details",
+    possession: "Under Construction",
+    status: "",
+    featured: true,
+    verified: true,
+    amenities: [
+      "Modern amenities",
+      "Parking facilities",
+      "Security system"
+    ],
+    description: "Varsha Group - Premium residential project in Navi Mumbai. Contact for detailed pricing and configurations.",
+    image: "/properties/varsha-group.webp",
+    configurations: [
+      {
+        type: "Contact for details",
+        size: "Contact for details",
+        price: "Contact for pricing"
+      }
+    ]
+  },
+
+  // Sai Palm View - Paradise Group
+  {
+    id: "sai-palm-view",
+    name: "Sai Palm View",
+    developer: "Paradise Group",
+    location: "Nerul, Navi Mumbai",
+    type: "Residential",
+    category: "buy",
+    price: "Contact for pricing",
+    size: "Contact for details",
+    possession: "Under Construction",
+    status: "",
+    featured: true,
+    verified: true,
+    amenities: [
+      "Grand Entrance Lobby",
+      "Swimming Pool",
+      "Kids Play Area",
+      "Private Theatre",
+      "Indoor Games Zone",
+      "Panoramic Sea Views",
+      "Bonfire Terrace",
+      "Party Lawn & Bar",
+      "Sculpture Lawn",
+      "Balcony Ocean View",
+      "Podium Landscape",
+      "Pergola Seating"
+    ],
+    description: "Sai Palm View by Paradise Group - Premium residences in Nerul with panoramic sea views, grand lobby, private theatre, swimming pool, and 35+ lifestyle amenities. Experience luxury living with breathtaking ocean vistas and world-class amenities.",
+    image: "/properties/gallery/sai-palm-view/11.webp",
+    gallery: [
+      "/properties/gallery/sai-palm-view/1.webp",
+      "/properties/gallery/sai-palm-view/2.webp",
+      "/properties/gallery/sai-palm-view/3.webp",
+      "/properties/gallery/sai-palm-view/5.webp",
+      "/properties/gallery/sai-palm-view/6.webp",
+      "/properties/gallery/sai-palm-view/7.webp",
+      "/properties/gallery/sai-palm-view/8.webp",
+      "/properties/gallery/sai-palm-view/9.webp",
+      "/properties/gallery/sai-palm-view/11.webp",
+      "/properties/gallery/sai-palm-view/12.webp",
+      "/properties/gallery/sai-palm-view/13.webp",
+      "/properties/gallery/sai-palm-view/14.webp",
+      "/properties/gallery/sai-palm-view/15.webp",
+      "/properties/gallery/sai-palm-view/16.webp"
+    ],
+    video: "SAI PALM VIEW LOCATION AV - FINAL - DEC 2025",
+    configurations: [
+      {
+        type: "Contact for details",
+        size: "Contact for details",
+        price: "Contact for pricing"
+      }
+    ]
   }
 ];
 
 export const locations = [
   "Nerul",
-  "Ulwe", 
+  "Ulwe",
   "Panvel",
   "Giravale Panvel",
   "Kharghar",
   "Taloja",
   "Pushpak Nagar",
   "Ghansoli",
-  "Sanpada"
+  "Sanpada",
+  "Juinagar",
+  "Belapur"
 ];
 
 export const propertyTypes = [
@@ -1402,15 +1678,14 @@ export const propertyTypes = [
 
 export const developers = [
   "TODAY GLOBAL DEVELOPERS",
-  "Emperia Icon",
-  "Raheja Developers",
-  "Continental Developers", 
+  "Emperia Projects",
+  "K Raheja Corp",
+  "Sacvir Realtors LLP",
   "Prime Developers",
   "Platinum Developers",
-  "Sai Developers",
+  "Paradise Group",
   "Omkar Developers",
   "Meraki Developers",
-  "Paradise Group",
   "National Builders",
   "Vastu Nirvana LLP",
   "Growl Communication Pvt Ltd",
@@ -1422,5 +1697,8 @@ export const developers = [
   "Millenium Group",
   "Riu Homes Private Limited",
   "Gami Group",
-  "Kamdhenu Developers"
+  "Kamdhenu Developers",
+  "Balaji Developers",
+  "Kavita Greenscape",
+  "Varsha Group"
 ];

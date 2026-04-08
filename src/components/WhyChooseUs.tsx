@@ -35,10 +35,10 @@ const WhyChooseUs = () => {
   ];
 
   return (
-    <section className="py-16 bg-white">
+    <section className="py-10 sm:py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-semibold mb-4 text-gray-900">Why Choose Sadguru Estate</h2>
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold mb-4 text-gray-900">Why Choose Sadguru Estate</h2>
           {/* <p className="text-xl text-gray-600">We create spaces that match your ambitions—whether you're looking for a dream home or a smart opportunity across Navi Mumbai's fastest-growing locations.</p> */}
         </div>
 
@@ -51,13 +51,13 @@ const WhyChooseUs = () => {
                 return (
                   <div 
                     key={index} 
-                    className="flex-shrink-0 w-80 bg-gradient-to-br from-gray-50 to-white text-gray-900 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100"
+                    className="flex-shrink-0 w-64 sm:w-80 bg-gradient-to-br from-gray-50 to-white text-gray-900 rounded-2xl p-5 sm:p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100"
                   >
-                    <div className="flex items-center mb-6">
-                      <div className="bg-gradient-to-br from-primary to-primary-dark w-16 h-16 rounded-full flex items-center justify-center mr-6 shadow-lg">
-                        <IconComponent className="h-8 w-8 text-white" />
+                    <div className="flex items-center mb-4 sm:mb-6">
+                      <div className="bg-gradient-to-br from-primary to-primary-dark w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mr-4 sm:mr-6 shadow-lg flex-shrink-0">
+                        <IconComponent className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
                       </div>
-                      <h3 className="text-xl font-semibold text-gray-900">{feature.title}</h3>
+                      <h3 className="text-base sm:text-xl font-semibold text-gray-900">{feature.title}</h3>
                     </div>
                     <p className="text-gray-600 leading-relaxed">{feature.description}</p>
                   </div>
@@ -75,12 +75,12 @@ const WhyChooseUs = () => {
         </div>
 
         {/* About Us Section */}
-        <div className="mt-16 text-center">
-          <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 max-w-4xl mx-auto border border-gray-100 shadow-lg">
-            <h3 className="text-2xl font-semibold mb-4 text-gray-900">About Us</h3>
+        <div className="mt-10 sm:mt-16 text-center">
+          <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-5 sm:p-8 max-w-4xl mx-auto border border-gray-100 shadow-lg">
+            <h3 className="text-xl sm:text-2xl font-semibold mb-4 text-gray-900">About Us</h3>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-              <div className="bg-white p-6 rounded-lg border border-gray-100 shadow-sm">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 text-left">
+              <div className="bg-white p-4 sm:p-6 rounded-lg border border-gray-100 shadow-sm">
                 <h4 className="font-semibold text-primary mb-2">Prime Locations</h4>
                 <p className="text-sm text-gray-600">Homes and spaces in well-connected, high-potential areas</p>
               </div>

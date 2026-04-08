@@ -1,9 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { properties } from '../data/properties';
 import CircularGallery from './CircularGallery';
 
 const ExploreCities = () => {
+  const navigate = useNavigate();
   // Get property counts for each location
   const getPropertyCount = (location: string) => {
     return properties.filter(p => p.location === location).length;
@@ -58,13 +59,19 @@ const ExploreCities = () => {
 
         {/* Circular Gallery - Desktop Only */}
         <div className="hidden lg:block" style={{ height: '500px', position: 'relative' }}>
-          <CircularGallery 
+          <CircularGallery
             items={galleryItems}
-            bend={2.5} 
-            textColor="#ffffff" 
-            borderRadius={0.05} 
+            bend={2.5}
+            textColor="#ffffff"
+            borderRadius={0.05}
             scrollEase={0.02}
             font="bold 20px sans-serif"
+            onItemClick={(index) => {
+              const city = cities[index];
+              if (city) {
+                navigate(`/properties?location=${city.name}`);
+              }
+            }}
           />
         </div>
 

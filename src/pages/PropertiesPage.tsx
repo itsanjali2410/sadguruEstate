@@ -8,7 +8,7 @@ import { useSEO } from '../hooks/useSEO';
 import { PAGE_SEO } from '../utils/seoUtils';
 
 const PropertiesPage = () => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const [showFilters, setShowFilters] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
@@ -32,6 +32,29 @@ const PropertiesPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<Property[] | null>(null);
 
+  // Sync filter/search state to URL so back button preserves state
+  const updateFilter = (key: string, value: string) => {
+    setFilters(prev => ({ ...prev, [key]: value }));
+    const newParams = new URLSearchParams(searchParams);
+    if (value) {
+      newParams.set(key, value);
+    } else {
+      newParams.delete(key);
+    }
+    setSearchParams(newParams, { replace: true });
+  };
+
+  const updateSearch = (value: string) => {
+    setSearchQuery(value);
+    const newParams = new URLSearchParams(searchParams);
+    if (value) {
+      newParams.set('search', value);
+    } else {
+      newParams.delete('search');
+    }
+    setSearchParams(newParams, { replace: true });
+  };
+
   // Handle search results from home page
   useEffect(() => {
     const storedResults = sessionStorage.getItem('searchResults');
@@ -52,28 +75,23 @@ const PropertiesPage = () => {
 
   // Handle URL parameters for location, category filtering, and search
   useEffect(() => {
-    const locationParam = searchParams.get('location');
-    const searchParam = searchParams.get('search');
-    
+    const locationParam = searchParams.get('location') || '';
+    const searchParam = searchParams.get('search') || '';
+    const developerParam = searchParams.get('developer') || '';
+    const propTypeParam = searchParams.get('propertyType') || '';
+
     // Clear search results if there's no search parameter
     if (!searchParam && searchResults) {
       setSearchResults(null);
     }
-    
-    if (locationParam) {
-      setFilters(prev => ({ ...prev, location: locationParam }));
-    } else {
-      setFilters(prev => ({ ...prev, location: '' }));
-    }
-    
-    // Don't set propertyType from categoryParam - category (buy/rent/commercial) is different from property.type (Residential/Commercial)
-    // propertyType filter is handled separately in the filter logic
-    
-    if (searchParam) {
-      setSearchQuery(searchParam);
-    } else {
-      setSearchQuery('');
-    }
+
+    setFilters(prev => ({
+      ...prev,
+      location: locationParam,
+      developer: developerParam,
+      propertyType: propTypeParam,
+    }));
+    setSearchQuery(searchParam);
   }, [searchParams, searchResults]);
 
   // Use search results if available, otherwise filter properties based on current filters
@@ -93,7 +111,7 @@ const PropertiesPage = () => {
     // If no type parameter, show ALL properties (no category filter)
     
     // Additional filters
-    if (filters.location && property.location !== filters.location) return false;
+    if (filters.location && !property.location.toLowerCase().includes(filters.location.toLowerCase())) return false;
     if (filters.propertyType && property.type !== filters.propertyType) return false;
     if (filters.developer && property.developer !== filters.developer) return false;
     
@@ -222,7 +240,7 @@ const PropertiesPage = () => {
                         type="text"
                         placeholder="Search by name or location..."
                         value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
+                        onChange={(e) => updateSearch(e.target.value)}
                         className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                       />
                     </div>
@@ -234,7 +252,7 @@ const PropertiesPage = () => {
                     <select 
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary"
                       value={filters.location}
-                      onChange={(e) => setFilters({...filters, location: e.target.value})}
+                      onChange={(e) => updateFilter('location', e.target.value)}
                     >
                       <option value="">All Locations</option>
                       {locations.map((location) => (
@@ -249,7 +267,7 @@ const PropertiesPage = () => {
                     <select 
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary"
                       value={filters.propertyType}
-                      onChange={(e) => setFilters({...filters, propertyType: e.target.value})}
+                      onChange={(e) => updateFilter('propertyType', e.target.value)}
                     >
                       <option value="">All Types</option>
                       {propertyTypes.map((type) => (
@@ -264,7 +282,7 @@ const PropertiesPage = () => {
                     <select 
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary"
                       value={filters.developer}
-                      onChange={(e) => setFilters({...filters, developer: e.target.value})}
+                      onChange={(e) => updateFilter('developer', e.target.value)}
                     >
                       <option value="">All Developers</option>
                       {developers.map((developer) => (
@@ -279,7 +297,7 @@ const PropertiesPage = () => {
                     <select 
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary"
                       value={filters.bedrooms}
-                      onChange={(e) => setFilters({...filters, bedrooms: e.target.value})}
+                      onChange={(e) => updateFilter('bedrooms', e.target.value)}
                     >
                       <option value="">Any</option>
                       <option value="1">1 BHK</option>
@@ -291,14 +309,19 @@ const PropertiesPage = () => {
                   </div>
 
                   <button 
-                    onClick={() => setFilters({
-                      location: '',
-                      priceRange: [0, 10000000],
-                      bedrooms: '',
-                      propertyType: '',
-                      developer: '',
-                      amenities: []
-                    })}
+                    onClick={() => {
+                      setFilters({
+                        location: '',
+                        priceRange: [0, 10000000],
+                        bedrooms: '',
+                        propertyType: '',
+                        developer: '',
+                        amenities: []
+                      });
+                      setSearchQuery('');
+                      const typeParam = searchParams.get('type');
+                      setSearchParams(typeParam ? { type: typeParam } : {}, { replace: true });
+                    }}
                     className="w-full bg-gray-600 text-white py-2 rounded-lg hover:bg-gray-700 transition-colors mb-4"
                   >
                     Clear Filters
@@ -326,7 +349,7 @@ const PropertiesPage = () => {
                     type="text"
                     placeholder="Search by name or location..."
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onChange={(e) => updateSearch(e.target.value)}
                     className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                   />
                 </div>
@@ -338,7 +361,7 @@ const PropertiesPage = () => {
                 <select 
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary"
                   value={filters.location}
-                  onChange={(e) => setFilters({...filters, location: e.target.value})}
+                  onChange={(e) => updateFilter('location', e.target.value)}
                 >
                   <option value="">All Locations</option>
                   {locations.map((location) => (
@@ -353,7 +376,7 @@ const PropertiesPage = () => {
                 <select 
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary"
                   value={filters.propertyType}
-                  onChange={(e) => setFilters({...filters, propertyType: e.target.value})}
+                  onChange={(e) => updateFilter('propertyType', e.target.value)}
                 >
                   <option value="">All Types</option>
                   {propertyTypes.map((type) => (
@@ -368,7 +391,7 @@ const PropertiesPage = () => {
                 <select 
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary"
                   value={filters.developer}
-                  onChange={(e) => setFilters({...filters, developer: e.target.value})}
+                  onChange={(e) => updateFilter('developer', e.target.value)}
                 >
                   <option value="">All Developers</option>
                   {developers.map((developer) => (
@@ -383,7 +406,7 @@ const PropertiesPage = () => {
                 <select 
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary"
                   value={filters.bedrooms}
-                  onChange={(e) => setFilters({...filters, bedrooms: e.target.value})}
+                  onChange={(e) => updateFilter('bedrooms', e.target.value)}
                 >
                   <option value="">Any</option>
                   <option value="1">1 BHK</option>
@@ -428,12 +451,16 @@ const PropertiesPage = () => {
             <div className="mb-8">
               <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-2">
                 {searchResults ? 'Search Results' :
+                 searchParams.get('location') ? `Properties in ${searchParams.get('location')}` :
                  searchParams.get('type') === 'commercial' ? 'Commercial Properties' :
                  searchParams.get('type') === 'buy' ? 'Properties for Buy' :
                  searchParams.get('type') === 'rent' ? 'Properties for Rent' :
                  'All Properties'} ({filteredProperties.length})
               </h2>
-              {searchParams.get('type') === 'commercial' && (
+              {searchParams.get('location') && (
+                <p className="text-gray-600">Showing all properties in {searchParams.get('location')}</p>
+              )}
+              {searchParams.get('type') === 'commercial' && !searchParams.get('location') && (
                 <p className="text-gray-600">Premium commercial spaces and office properties</p>
               )}
             </div>

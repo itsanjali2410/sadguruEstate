@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { Search, MapPin, Building2, Users, Heart } from "lucide-react";
+import { Search, MapPin, Building2, Users } from "lucide-react";
 import { searchProperties, SearchFilters, getLocationSuggestions } from "../utils/searchUtils";
 import { properties } from "../data/properties";
 
@@ -16,7 +16,6 @@ export default function HeroSection() {
   const totalProperties = properties.length;
   const buyProperties = properties.filter(p => p.category === 'buy').length;
   const rentProperties = properties.filter(p => p.category === 'rent').length;
-  const commercialProperties = properties.filter(p => p.category === 'commercial').length;
 
   // Featured properties for slider
   const featuredProperties = [
@@ -28,7 +27,7 @@ export default function HeroSection() {
       price: "₹42 Lakhs+",
       possession: "Dec 2026",
       status: "Under Construction",
-      image: "/Emperia-icon.png"
+      image: "/properties/emperia-icon.webp"
     },
     {
       id: "today-global-developers-giravale",
@@ -38,7 +37,7 @@ export default function HeroSection() {
       price: "₹41.54 Lakhs+",
       possession: "Dec 2026",
       status: "Under Construction",
-      image: "/homeimage.png"
+      image: "/properties/today-global-developers.webp"
     },
     {
       id: "sai-world-city-nerul-1",
@@ -48,7 +47,7 @@ export default function HeroSection() {
       price: "₹2.10 Cr+",
       possession: "Under Construction",
       status: "Under Construction",
-      image: "/omkar-regency.png"
+      image: "/properties/sai-world-city-nerul.webp"
     }
   ];
 
@@ -56,7 +55,7 @@ export default function HeroSection() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % featuredProperties.length);
-    }, 5000); // Change slide every 5 seconds
+    }, 5000);
 
     return () => clearInterval(interval);
   }, []);
@@ -75,9 +74,9 @@ export default function HeroSection() {
 
   const handleSearch = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    
+
     if (!searchQuery.trim()) return;
-    
+
     const searchFilters: SearchFilters = {
       searchQuery: searchQuery.trim(),
       selectedLocation: "",
@@ -85,25 +84,20 @@ export default function HeroSection() {
       selectedCategory: "",
       budget: ""
     };
-    
-    // Perform search
+
     const searchResults = searchProperties(properties, searchFilters);
-    
-    // Store search results in sessionStorage for the properties page
     sessionStorage.setItem('searchResults', JSON.stringify(searchResults));
     sessionStorage.setItem('searchFilters', JSON.stringify(searchFilters));
-    
-    // Navigate to properties page
     navigate('/properties');
   };
 
   return (
     <div className="relative h-[70vh] sm:h-[80vh] lg:h-screen flex items-center justify-center overflow-hidden">
-      
+
        {/* Full Banner Background Image */}
        <div className="absolute inset-0">
          <img
-           src="/Emperia-icon.png"
+           src="/properties/emperia-icon.webp"
            alt="EMPERIA ICON - Premium Office Spaces"
            className="w-full h-full object-cover"
          />
@@ -112,10 +106,10 @@ export default function HeroSection() {
 
        {/* Main Content Overlay */}
        <div className="relative z-10 w-full max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 flex flex-col lg:flex-row items-center justify-between h-full py-4 sm:py-6 lg:py-16">
-         
+
          {/* Left Content - Search and Stats */}
          <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left mb-4 sm:mb-6 lg:mb-0 lg:pr-12 w-full lg:w-auto">
-           
+
            {/* Desktop-only Creative Elements */}
            <div className="hidden lg:block absolute -left-8 top-1/2 transform -translate-y-1/2">
              <div className="flex flex-col space-y-4">
@@ -124,8 +118,8 @@ export default function HeroSection() {
                <div className="w-1 h-8 bg-gradient-to-b from-white/10 to-transparent"></div>
              </div>
            </div>
-           
-           {/* Hero Text - Desktop and Mobile */}
+
+           {/* Hero Text */}
            <motion.div
              initial={{ opacity: 0, x: -50 }}
              animate={{ opacity: 1, x: 0 }}
@@ -134,9 +128,7 @@ export default function HeroSection() {
            >
              <h1 className="text-2xl xs:text-3xl sm:text-4xl lg:text-4xl xl:text-5xl font-medium text-white mb-2 sm:mb-3 lg:mb-4 leading-tight">
                THE ADDRESS OF YOUR HOME.
-
              </h1>
-             
            </motion.div>
 
          {/* Clean Search Bar */}
@@ -169,7 +161,7 @@ export default function HeroSection() {
                    <span className="hidden xs:inline sm:inline">Search</span>
                  </button>
                </div>
-               
+
                {/* Location Suggestions Dropdown */}
                {showSuggestions && locationSuggestions.length > 0 && (
                  <div className="absolute z-10 w-full mt-2 bg-white rounded-lg shadow-xl border border-gray-200 max-h-60 overflow-y-auto">
@@ -197,7 +189,7 @@ export default function HeroSection() {
                )}
              </div>
            </form>
-           
+
            {/* Quick Search Tags */}
            <motion.div
              initial={{ opacity: 0, y: 10 }}
@@ -217,7 +209,7 @@ export default function HeroSection() {
            </motion.div>
          </motion.div>
 
-         {/* Enhanced Stats for Desktop */}
+         {/* Enhanced Stats */}
          <motion.div
            initial={{ opacity: 0, y: 20 }}
            animate={{ opacity: 1, y: 0 }}
@@ -229,7 +221,7 @@ export default function HeroSection() {
              { number: `${buyProperties}+`, label: "For Sale", icon: Building2 },
              { number: `${rentProperties}+`, label: "For Rent", icon: Users }
            ].map((stat, index) => (
-             <motion.div 
+             <motion.div
                key={index}
                className="text-center lg:text-left group"
                whileHover={{ scale: 1.05 }}
@@ -243,15 +235,14 @@ export default function HeroSection() {
                </div>
                <div className="text-xs xs:text-xs sm:text-sm lg:text-base text-gray-300 lg:text-white/70">
                  {stat.label}
-        </div>
-               {/* Desktop-only animated underline */}
+               </div>
                <div className="hidden lg:block w-0 group-hover:w-full h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 transition-all duration-300 mt-1"></div>
              </motion.div>
            ))}
          </motion.div>
        </div>
 
-         {/* Right Content - Enhanced Property Details */}
+         {/* Right Content - Property Slider */}
          <div className="flex-1 flex items-center justify-center lg:justify-end mt-4 sm:mt-6 lg:mt-0 w-full lg:w-auto">
            {/* Desktop-only floating elements */}
            <div className="hidden lg:block absolute -right-8 top-1/2 transform -translate-y-1/2">
@@ -273,7 +264,7 @@ export default function HeroSection() {
                ></motion.div>
              </div>
            </div>
-           
+
            <motion.div
              initial={{ opacity: 0, scale: 0.9, y: 20 }}
              animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -283,16 +274,14 @@ export default function HeroSection() {
              {/* Property Slider Container */}
              <div className="relative overflow-hidden rounded-xl lg:rounded-2xl">
                {/* Slider Track */}
-               <div 
+               <div
                  className="flex transition-transform duration-500 ease-in-out"
                  style={{ transform: `translateX(-${currentSlide * 100}%)` }}
                >
                  {featuredProperties.map((property, index) => (
                    <div key={property.id} className="w-full flex-shrink-0">
-                     {/* Property Card */}
                      <div className="bg-white/15 backdrop-blur-lg rounded-xl lg:rounded-2xl p-3 sm:p-4 lg:p-6 border border-white/30 shadow-xl lg:shadow-2xl hover:shadow-3xl transition-all duration-500 group">
-                       
-                       {/* Top Section - Featured Badge */}
+
                        <div className="flex justify-between items-start mb-3 sm:mb-4">
                          <div className="text-white/60 text-xs">
                            {index + 1} / {featuredProperties.length}
@@ -302,7 +291,6 @@ export default function HeroSection() {
                          </div>
                        </div>
 
-                       {/* Middle Section - Property Info */}
                        <div className="mb-4 sm:mb-5">
                          <h3 className="text-white text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold mb-1 sm:mb-2 leading-tight">
                            {property.name}
@@ -310,8 +298,7 @@ export default function HeroSection() {
                          <p className="text-white/90 text-xs sm:text-sm lg:text-base mb-3 sm:mb-4">
                            {property.type} • {property.location}
                          </p>
-                         
-                         {/* Price Display */}
+
                          <div className="bg-white/10 rounded-lg p-3 mb-3">
                            <div className="flex items-center justify-between">
                              <span className="text-white/80 text-xs sm:text-sm">Starting Price</span>
@@ -324,18 +311,17 @@ export default function HeroSection() {
                          </div>
                        </div>
 
-                       {/* Bottom Section - CTA */}
                        <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
                          <button
                            onClick={() => navigate(`/property/${property.id}`)}
-                           className="bg-gradient-to-r from-white to-gray-100 text-slate-900 px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold text-xs sm:text-sm hover:from-gray-100 hover:to-white transition-all duration-300 flex items-center justify-center space-x-2 shadow-md hover:shadow-lg group-hover:scale-105 transform transition-transform duration-300"
+                           className="bg-gradient-to-r from-white to-gray-100 text-slate-900 px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold text-xs sm:text-sm hover:from-gray-100 hover:to-white transition-all duration-300 flex items-center justify-center space-x-2 shadow-md hover:shadow-lg group-hover:scale-105"
                          >
                            <span>View Details</span>
                            <svg className="w-3 h-3 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                            </svg>
                          </button>
-                         
+
                          <button className="bg-white/10 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium text-xs sm:text-sm hover:bg-white/20 transition-colors duration-300 border border-white/20 flex items-center justify-center space-x-2">
                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
@@ -343,8 +329,7 @@ export default function HeroSection() {
                            <span>Call Now</span>
                          </button>
                        </div>
-                     
-                       {/* Trust Indicators */}
+
                        <div className="mt-3 pt-3 border-t border-white/20">
                          <div className="flex items-center justify-between text-xs text-white/70">
                            <div className="flex items-center space-x-1">
@@ -373,8 +358,8 @@ export default function HeroSection() {
                      key={index}
                      onClick={() => setCurrentSlide(index)}
                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                       index === currentSlide 
-                         ? 'bg-white scale-125' 
+                       index === currentSlide
+                         ? 'bg-white scale-125'
                          : 'bg-white/40 hover:bg-white/60'
                      }`}
                    />
@@ -390,7 +375,7 @@ export default function HeroSection() {
                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                  </svg>
                </button>
-               
+
                <button
                  onClick={() => setCurrentSlide((prev) => (prev + 1) % featuredProperties.length)}
                  className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-2 rounded-full transition-all duration-300 backdrop-blur-sm"
@@ -404,7 +389,7 @@ export default function HeroSection() {
          </div>
        </div>
 
-      {/* Clean Scroll Indicator */}
+      {/* Scroll Indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
