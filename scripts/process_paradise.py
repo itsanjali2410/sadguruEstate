@@ -9,7 +9,8 @@ import os
 from pathlib import Path
 from PIL import Image
 
-BASE_DIR = Path(__file__).parent
+# Script lives in scripts/, one level below the repo root
+BASE_DIR = Path(__file__).parent.parent / "frontend"
 SAI_PALM_DIR = BASE_DIR / "public" / "sai_palm"
 GALLERY_DIR = BASE_DIR / "public" / "properties" / "gallery"
 WEBP_QUALITY = 80

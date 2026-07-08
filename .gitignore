@@ -36,3 +36,6 @@ dist-ssr
 *.pdf
 frontend/public/videos/
 Sadguru Estates - Content & Images/
+
+# Claude Code local settings
+.claude/

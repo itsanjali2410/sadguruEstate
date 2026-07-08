@@ -12,11 +12,11 @@ import fitz  # PyMuPDF
 from PIL import Image
 from pathlib import Path
 
-# Paths
-BASE_DIR = Path(__file__).parent
-CONTENT_DIR = BASE_DIR / "Sadguru Estates - Content & Images"
-PUBLIC_DIR = BASE_DIR / "public" / "properties"
-OUTPUT_DIR = BASE_DIR / "scraped_output"
+# Paths (script lives in scripts/, one level below the repo root)
+ROOT_DIR = Path(__file__).parent.parent
+CONTENT_DIR = ROOT_DIR / "Sadguru Estates - Content & Images"
+PUBLIC_DIR = ROOT_DIR / "frontend" / "public" / "properties"
+OUTPUT_DIR = ROOT_DIR / "scraped_output"
 
 # Ensure output directories exist
 PUBLIC_DIR.mkdir(parents=True, exist_ok=True)
