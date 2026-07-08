@@ -5,10 +5,11 @@ Uses Google Gemini to generate wide promotional travel banners for Vietnam citie
 Setup:
   1. pip install google-genai Pillow
   2. Get API key from https://aistudio.google.com/apikey
-  3. Paste your API key on line 18
+  3. export GEMINI_API_KEY=your-key
   4. Run: python generate_images.py
 """
 
+import os
 import time
 import base64
 from pathlib import Path
@@ -18,8 +19,9 @@ from google import genai
 from google.genai import types
 
 # ── CONFIG ──────────────────────────────────────────────
-# Paste your Gemini API key below (get it from https://aistudio.google.com/apikey)
-API_KEY = "AIzaSyBCdQyFF5F2BUceHWzH80Ck1zaYPm9lpTo"
+# Set the GEMINI_API_KEY env var (get a key from https://aistudio.google.com/apikey)
+# Never hardcode the key here — this file is committed to GitHub.
+API_KEY = os.environ["GEMINI_API_KEY"]
 OUTPUT_DIR = Path(__file__).parent / "public" / "banners" / "vietnam"
 
 BANNER_WIDTH = 1920
