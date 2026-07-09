@@ -21,6 +21,8 @@ export interface ContactFormData {
   formType: 'contact' | 'property_inquiry' | 'quick_info';
   propertyName?: string;
   propertySlug?: string;
+  /** Honeypot field — hidden from users; bots that fill it get dropped. */
+  website?: string;
 }
 
 /**
@@ -41,6 +43,7 @@ export const sendLead = async (data: ContactFormData) => {
       propertyName: data.propertyName,
       propertySlug: data.propertySlug,
       meta,
+      website: data.website,
     });
     return { success: true, message: 'Submitted successfully!' };
   } catch (error) {

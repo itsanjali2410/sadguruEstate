@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { X, CheckCircle, User, Phone, MessageSquare } from 'lucide-react';
 import { sendLead, logFormSubmission } from '../services/emailService';
+import HoneypotField from './HoneypotField';
 
 interface PopupFormProps {
   isOpen: boolean;
@@ -15,7 +16,8 @@ const PopupForm = ({ isOpen, onClose, propertyName }: PopupFormProps) => {
     name: '',
     email: '',
     phone: '',
-    requirements: ''
+    requirements: '',
+    website: '' // honeypot — stays empty for real users
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -46,7 +48,8 @@ const PopupForm = ({ isOpen, onClose, propertyName }: PopupFormProps) => {
       phone: formData.phone,
       message: formData.requirements,
       formType: 'property_inquiry',
-      propertyName
+      propertyName,
+      website: formData.website
     });
 
     setIsSubmitted(true);
@@ -57,7 +60,8 @@ const PopupForm = ({ isOpen, onClose, propertyName }: PopupFormProps) => {
         name: '',
         email: '',
         phone: '',
-        requirements: ''
+        requirements: '',
+        website: ''
       });
       onClose();
       navigate('/thank-you');
@@ -107,6 +111,7 @@ const PopupForm = ({ isOpen, onClose, propertyName }: PopupFormProps) => {
             
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
+            <HoneypotField value={formData.website} onChange={handleInputChange} />
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <User className="h-5 w-5 text-gray-400" />

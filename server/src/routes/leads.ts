@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import rateLimit from 'express-rate-limit';
 import { Lead } from '../models/Lead.js';
 import { requireAuth } from '../middleware/auth.js';
 import { notifyNewLead } from '../lib/mailer.js';
@@ -7,8 +8,23 @@ const router = Router();
 
 // ── PUBLIC ────────────────────────────────────────────────────
 
+// Spam protection: max 5 submissions per IP per 15 minutes
+const leadLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 5,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Too many submissions — please try again in a few minutes.' },
+});
+
 // POST /api/leads — capture a form / brochure-download submission
-router.post('/', async (req, res) => {
+router.post('/', leadLimiter, async (req, res) => {
+  // Honeypot: real users never see/fill the "website" field. Bots do.
+  // Pretend success so the bot moves on, but store nothing.
+  if (req.body.website) {
+    return res.status(201).json({ ok: true, id: 'received' });
+  }
+
   const phone = String(req.body.phone || '').trim();
   if (phone.replace(/\D/g, '').length < 10) {
     return res.status(400).json({ error: 'Valid phone number required' });

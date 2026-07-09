@@ -4,6 +4,7 @@ import { MapPin, Phone, Mail, Clock, Send, MessageSquare, User, Home, Instagram,
 import { useSEO } from '../hooks/useSEO';
 import { PAGE_SEO } from '../utils/seoUtils';
 import { sendLead, logFormSubmission } from '../services/emailService';
+import HoneypotField from '../components/HoneypotField';
 
 const ContactPage = () => {
   useSEO(PAGE_SEO.contact);
@@ -14,7 +15,8 @@ const ContactPage = () => {
     phone: '',
     location: '',
     propertyType: '',
-    message: ''
+    message: '',
+    website: '' // honeypot — stays empty for real users
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -44,7 +46,8 @@ const ContactPage = () => {
         location: formData.location,
         propertyType: formData.propertyType,
         message: formData.message,
-        formType: 'contact'
+        formType: 'contact',
+        website: formData.website
       });
 
       if (!result.success) {
@@ -60,7 +63,8 @@ const ContactPage = () => {
         phone: '',
         location: '',
         propertyType: '',
-        message: ''
+        message: '',
+        website: ''
       });
 
       navigate('/thank-you');
@@ -104,6 +108,7 @@ const ContactPage = () => {
             )}
 
             <form onSubmit={handleSubmit} className="space-y-6">
+              <HoneypotField value={formData.website} onChange={handleChange} />
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">

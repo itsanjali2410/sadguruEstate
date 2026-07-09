@@ -78,7 +78,7 @@ export const generatePropertyStructuredData = (property: any) => {
     name: property.name,
     description: property.description,
     image: property.image,
-    url: `https://itsanjali2410.github.io/sadguruEstate/property/${property.id}`,
+    url: `https://sadguruestate.com/property/${property.id}`,
     address: {
       '@type': 'PostalAddress',
       addressLocality: property.location,
@@ -93,7 +93,7 @@ export const generatePropertyStructuredData = (property: any) => {
     realEstateAgent: {
       '@type': 'RealEstateAgent',
       name: 'Sadguru Estate',
-      url: 'https://itsanjali2410.github.io/sadguruEstate/'
+      url: 'https://sadguruestate.com/'
     }
   };
 };

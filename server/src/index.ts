@@ -13,6 +13,10 @@ import revisionRoutes from './routes/revisions.js';
 
 const app = express();
 
+// Behind Render's proxy: trust X-Forwarded-For so rate limiting sees the
+// real client IP, not the proxy's.
+app.set('trust proxy', 1);
+
 app.use(
   cors({
     origin: config.corsOrigins.length ? config.corsOrigins : true,

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Phone, User, MessageSquare, CheckCircle, AlertCircle, Loader } from 'lucide-react';
 import { validateFormData, logFormSubmission, sendLead } from '../services/emailService';
+import HoneypotField from './HoneypotField';
 
 interface StaticContactFormProps {
   propertyName?: string;
@@ -14,7 +15,8 @@ const StaticContactForm = ({ propertyName, className = "" }: StaticContactFormPr
     name: '',
     email: '',
     phone: '',
-    requirements: ''
+    requirements: '',
+    website: '' // honeypot — stays empty for real users
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -70,7 +72,8 @@ const StaticContactForm = ({ propertyName, className = "" }: StaticContactFormPr
         phone: formData.phone,
         message: formData.requirements,
         formType: 'quick_info',
-        propertyName
+        propertyName,
+        website: formData.website
       });
 
       if (!emailResult.success) {
@@ -153,6 +156,7 @@ const StaticContactForm = ({ propertyName, className = "" }: StaticContactFormPr
 
       {/* Form */}
       <form onSubmit={handleSubmit} className="space-y-4">
+        <HoneypotField value={formData.website} onChange={handleInputChange} />
         {/* Name Input */}
         <div>
           <div className="relative">

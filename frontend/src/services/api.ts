@@ -58,6 +58,8 @@ export interface LeadPayload {
   propertySlug?: string;
   propertyName?: string;
   meta?: Record<string, string>;
+  /** Honeypot — must stay empty; bots that fill it are silently dropped. */
+  website?: string;
 }
 
 export async function submitLead(
