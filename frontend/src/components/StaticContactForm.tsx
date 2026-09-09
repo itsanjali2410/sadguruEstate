@@ -88,7 +88,8 @@ const StaticContactForm = ({ propertyName, className = "" }: StaticContactFormPr
         name: '',
         email: '',
         phone: '',
-        requirements: ''
+        requirements: '',
+        website: ''
       });
 
       // Navigate to thank you page after 2 seconds

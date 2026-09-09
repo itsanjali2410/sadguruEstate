@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import HeroSection from '../components/HeroSection';
 import TrendingProperties from '../components/TrendingProperties';
 import ExploreCities from '../components/ExploreCities';
@@ -7,6 +6,7 @@ import AboutUs from '../components/AboutUs';
 import Testimonials from '../components/Testimonials';
 import CallToAction from '../components/CallToAction';
 import PopupForm from '../components/PopupForm';
+import { useLeadPopup } from '../hooks/useLeadPopup';
 import { useSEO } from '../hooks/useSEO';
 import { PAGE_SEO } from '../utils/seoUtils';
 
@@ -14,28 +14,7 @@ const HomePage = () => {
   // SEO Optimization
   useSEO(PAGE_SEO.home);
 
-  const [showPopup, setShowPopup] = useState(false);
-
-  useEffect(() => {
-    // Show popup after 10 seconds
-    const timer = setTimeout(() => {
-      setShowPopup(true);
-    }, 10000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Show popup on exit intent (when mouse leaves the viewport)
-  useEffect(() => {
-    const handleMouseLeave = (e: MouseEvent) => {
-      if (e.clientY <= 0) {
-        setShowPopup(true);
-      }
-    };
-
-    document.addEventListener('mouseleave', handleMouseLeave);
-    return () => document.removeEventListener('mouseleave', handleMouseLeave);
-  }, []);
+  const { isOpen: showPopup, close: closePopup } = useLeadPopup();
 
   return (
     <div>
@@ -46,11 +25,8 @@ const HomePage = () => {
       <AboutUs />
       <Testimonials />
       <CallToAction />
-      
-      <PopupForm 
-        isOpen={showPopup} 
-        onClose={() => setShowPopup(false)} 
-      />
+
+      <PopupForm isOpen={showPopup} onClose={closePopup} />
     </div>
   );
 };

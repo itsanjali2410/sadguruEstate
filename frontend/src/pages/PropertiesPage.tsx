@@ -16,7 +16,9 @@ const PropertiesPage = () => {
   const propertyTypes = uniqueValues(properties, 'type');
   const developers = uniqueValues(properties, 'developer');
   const [showFilters, setShowFilters] = useState(false);
-  const [showPopup, setShowPopup] = useState(false);
+  // Which property the enquiry popup is for (null = closed). Previously a
+  // bare boolean, so the popup always said "Selected Property".
+  const [popupProperty, setPopupProperty] = useState<Property | null>(null);
 
   // Dynamic SEO based on page type
   const propertyType = searchParams.get('type');
@@ -60,22 +62,30 @@ const PropertiesPage = () => {
     setSearchParams(newParams, { replace: true });
   };
 
-  // Handle search results from home page
+  // Handle search results handed over from the home page hero search.
+  // Only honour them when the URL carries no explicit filter of its own —
+  // otherwise a stale hero search would override links like
+  // /properties?location=Nerul and show the wrong properties.
   useEffect(() => {
     const storedResults = sessionStorage.getItem('searchResults');
-    const storedFilters = sessionStorage.getItem('searchFilters');
-    
-    if (storedResults && storedFilters) {
-      const parsedResults = JSON.parse(storedResults);
-      // Only set search results if there are actual results
-      if (parsedResults && parsedResults.length > 0) {
-        setSearchResults(parsedResults);
-      }
-      
-      // Clear the stored data after using it
-      sessionStorage.removeItem('searchResults');
-      sessionStorage.removeItem('searchFilters');
+
+    // Always clear the handover, even if we ignore it, so it can't leak
+    // into a later navigation.
+    sessionStorage.removeItem('searchResults');
+    sessionStorage.removeItem('searchFilters');
+
+    const hasUrlFilter = ['location', 'search', 'developer', 'propertyType', 'type']
+      .some((k) => searchParams.get(k));
+    if (hasUrlFilter || !storedResults) return;
+
+    try {
+      const parsed = JSON.parse(storedResults);
+      if (Array.isArray(parsed) && parsed.length > 0) setSearchResults(parsed);
+    } catch {
+      /* malformed handover — ignore */
     }
+    // Runs once on mount: this is a one-time handover, not a live subscription.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Handle URL parameters for location, category filtering, and search
@@ -99,8 +109,10 @@ const PropertiesPage = () => {
     setSearchQuery(searchParam);
   }, [searchParams, searchResults]);
 
-  // Use search results if available, otherwise filter properties based on current filters
-  const filteredProperties = (searchResults && searchResults.length > 0) ? searchResults : properties.filter(property => {
+  // Filter the hero-search handover too, rather than returning it verbatim,
+  // so URL filters still apply on top of it.
+  const source = searchResults && searchResults.length > 0 ? searchResults : properties;
+  const filteredProperties = source.filter(property => {
     // Handle category filtering
     const categoryParam = searchParams.get('type');
 
@@ -180,7 +192,7 @@ const PropertiesPage = () => {
           <button 
             onClick={(e) => {
               e.stopPropagation();
-              setShowPopup(true);
+              setPopupProperty(property);
             }}
             className="flex items-center text-gray-500 text-sm hover:text-gray-700 transition-colors"
           >
@@ -495,10 +507,10 @@ const PropertiesPage = () => {
       </div>
 
       {/* Popup Form */}
-      <PopupForm 
-        isOpen={showPopup} 
-        onClose={() => setShowPopup(false)} 
-        propertyName="Selected Property"
+      <PopupForm
+        isOpen={popupProperty !== null}
+        onClose={() => setPopupProperty(null)}
+        propertyName={popupProperty?.name}
       />
     </div>
   );
