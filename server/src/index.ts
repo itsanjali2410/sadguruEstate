@@ -1,7 +1,8 @@
 import { app, ready } from './app.js';
-import { config } from './config.js';
+import { config, assertConfig } from './config.js';
 
 async function start() {
+  assertConfig();
   await ready();
   app.listen(config.port, () => {
     console.log(`✓ API listening on http://localhost:${config.port}`);

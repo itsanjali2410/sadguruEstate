@@ -1,11 +1,28 @@
 import 'dotenv/config';
 
+/** Env vars that are missing at import time; reported by /api/health. */
+export const missingEnv: string[] = [];
+
+// Throwing here would kill the serverless function during module import,
+// before any route runs — the client then sees an opaque crash with no clue
+// which variable is missing. Record it instead and let the request handler
+// report it. The local server still refuses to start (see assertConfig).
 function required(name: string): string {
   const value = process.env[name];
   if (!value) {
-    throw new Error(`Missing required env var: ${name}. See server/.env.example`);
+    missingEnv.push(name);
+    return '';
   }
   return value;
+}
+
+/** Fail fast in long-running (non-serverless) processes. */
+export function assertConfig(): void {
+  if (missingEnv.length) {
+    throw new Error(
+      `Missing required env var(s): ${missingEnv.join(', ')}. See server/.env.example`
+    );
+  }
 }
 
 export const config = {

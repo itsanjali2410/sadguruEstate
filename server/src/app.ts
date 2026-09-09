@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import { config } from './config.js';
+import mongoose from 'mongoose';
+import { config, missingEnv } from './config.js';
 import { connectDB } from './db.js';
 
 import authRoutes from './routes/auth.js';
@@ -26,7 +27,16 @@ app.use(
 );
 app.use(express.json({ limit: '2mb' }));
 
-app.get('/api/health', (_req, res) => res.json({ ok: true }));
+app.get('/api/health', (_req, res) => {
+  if (missingEnv.length) {
+    return res.status(500).json({
+      ok: false,
+      error: 'Missing environment variables',
+      missing: missingEnv,
+    });
+  }
+  res.json({ ok: true, db: mongoose.connection.readyState === 1 });
+});
 
 app.use('/api/auth', authRoutes);
 app.use('/api/properties', propertyRoutes);
@@ -54,6 +64,14 @@ app.use(
 let connecting: Promise<unknown> | null = null;
 
 export function ready(): Promise<unknown> {
-  if (!connecting) connecting = connectDB();
+  if (missingEnv.length) return Promise.resolve(null);
+  if (!connecting) {
+    // Reset on failure so a later invocation can retry instead of being
+    // stuck with a permanently rejected promise.
+    connecting = connectDB().catch((e) => {
+      connecting = null;
+      throw e;
+    });
+  }
   return connecting;
 }
