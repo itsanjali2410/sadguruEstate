@@ -1,7 +1,9 @@
 import { Property } from '../types/property';
 
-export const API_URL =
-  import.meta.env.VITE_API_URL || 'http://localhost:4000';
+// Empty string = same-origin: in production the API is served from /api on
+// this very domain by the Vercel function, so no cross-origin call is made.
+// Local dev sets VITE_API_URL=http://localhost:4000 to reach the Express server.
+export const API_URL = import.meta.env.VITE_API_URL ?? '';
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${API_URL}${path}`, init);

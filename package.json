@@ -1,0 +1,9 @@
+{
+  "name": "sadguru-estate",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "devDependencies": {
+    "@vercel/node": "^3.2.29"
+  }
+}
