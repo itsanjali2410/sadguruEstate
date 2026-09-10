@@ -65,13 +65,20 @@ let connecting: Promise<unknown> | null = null;
 
 export function ready(): Promise<unknown> {
   if (missingEnv.length) return Promise.resolve(null);
+
+  // Already live on this warm container — nothing to do.
+  if (mongoose.connection.readyState === 1) return Promise.resolve(mongoose);
+
+  // Not live: drop any cached promise so a dropped connection (e.g. the
+  // cluster was paused) is retried rather than resolved from cache.
   if (!connecting) {
-    // Reset on failure so a later invocation can retry instead of being
-    // stuck with a permanently rejected promise.
-    connecting = connectDB().catch((e) => {
-      connecting = null;
-      throw e;
-    });
+    connecting = connectDB()
+      .catch((e) => {
+        throw e;
+      })
+      .finally(() => {
+        connecting = null;
+      });
   }
   return connecting;
 }
