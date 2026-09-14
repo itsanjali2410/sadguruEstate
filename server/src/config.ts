@@ -42,10 +42,22 @@ export const config = {
     model: process.env.GEMINI_MODEL || 'gemini-2.0-flash',
   },
   port: Number(process.env.PORT) || 4000,
-  corsOrigins: (process.env.CORS_ORIGINS || '')
-    .split(',')
-    .map((o) => o.trim())
-    .filter(Boolean),
+  // The live site's origins are always allowed, regardless of what the
+  // host's CORS_ORIGINS env var says: a stale or mistyped value there has
+  // silently broken production before. CORS_ORIGINS adds extras (local dev).
+  corsOrigins: [
+    ...new Set([
+      'https://sadguruestates.com',
+      'https://www.sadguruestates.com',
+      // Vercel's own URL for the frontend — the custom domain currently has
+      // no DNS, so this is the address the site is actually reachable at.
+      'https://sadguru-estate.vercel.app',
+      ...(process.env.CORS_ORIGINS || '')
+        .split(',')
+        .map((o) => o.trim().replace(/\/+$/, ''))
+        .filter(Boolean),
+    ]),
+  ],
   smtp: {
     host: process.env.SMTP_HOST || '',
     port: Number(process.env.SMTP_PORT) || 587,

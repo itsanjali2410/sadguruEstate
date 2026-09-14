@@ -5,4 +5,4 @@ Allow: /
 Disallow: /thank-you
 
 # Sitemap
-Sitemap: https://sadguruestate.com/sitemap.xml
+Sitemap: https://sadguruestates.com/sitemap.xml
