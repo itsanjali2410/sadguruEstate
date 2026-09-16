@@ -35,7 +35,14 @@ app.get('/api/health', (_req, res) => {
       missing: missingEnv,
     });
   }
-  res.json({ ok: true, db: mongoose.connection.readyState === 1 });
+  res.json({
+    ok: true,
+    db: mongoose.connection.readyState === 1,
+    // Render sets RENDER_GIT_COMMIT automatically; lets us see which commit
+    // is actually running instead of guessing whether a deploy happened.
+    commit: (process.env.RENDER_GIT_COMMIT || 'local').slice(0, 7),
+    cors: config.corsOrigins,
+  });
 });
 
 app.use('/api/auth', authRoutes);
