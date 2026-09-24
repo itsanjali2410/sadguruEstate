@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { CONTACT_EMAIL } from '../lib/contact';
 import { MessageCircle, Phone, Mail, ArrowRight, CheckCircle, Home } from 'lucide-react';
 
 const CallToAction = () => {
@@ -101,7 +102,7 @@ const CallToAction = () => {
                   </div>
                   <div>
                     <div className="font-semibold text-gray-900">Email Us</div>
-                    <div className="text-gray-600">info@sadguruestate.com</div>
+                    <div className="text-gray-600"><a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-primary">{CONTACT_EMAIL}</a></div>
                   </div>
                 </div>
 

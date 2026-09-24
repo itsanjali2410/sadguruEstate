@@ -3,6 +3,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import { config, missingEnv } from './config.js';
 import { connectDB } from './db.js';
+import { mailReady } from './lib/mailer.js';
 
 import authRoutes from './routes/auth.js';
 import propertyRoutes from './routes/properties.js';
@@ -44,6 +45,7 @@ app.get('/api/health', (_req, res) => {
     // is actually running instead of guessing whether a deploy happened.
     commit: (process.env.RENDER_GIT_COMMIT || 'local').slice(0, 7),
     cors: config.corsOrigins,
+    mail: mailReady(),
   });
 });
 

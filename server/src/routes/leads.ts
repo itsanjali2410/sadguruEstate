@@ -2,7 +2,7 @@ import { Router } from 'express';
 import rateLimit from 'express-rate-limit';
 import { Lead } from '../models/Lead.js';
 import { requireAuth } from '../middleware/auth.js';
-import { notifyNewLead } from '../lib/mailer.js';
+import { notifyNewLead, sendTestEmail } from '../lib/mailer.js';
 
 const router = Router();
 
@@ -48,6 +48,17 @@ router.post('/', leadLimiter, async (req, res) => {
 });
 
 // ── ADMIN ─────────────────────────────────────────────────────
+
+// POST /api/leads/test-email — send a test message to LEAD_NOTIFY_TO to
+// prove SMTP works, without having to submit a fake lead.
+router.post('/test-email', requireAuth, async (_req, res) => {
+  try {
+    const to = await sendTestEmail();
+    res.json({ ok: true, to });
+  } catch (e) {
+    res.status(503).json({ ok: false, error: e instanceof Error ? e.message : String(e) });
+  }
+});
 
 // GET /api/leads — inbox
 router.get('/', requireAuth, async (req, res) => {

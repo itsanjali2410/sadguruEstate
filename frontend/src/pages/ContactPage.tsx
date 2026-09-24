@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { CONTACT_EMAIL } from '../lib/contact';
 import { useNavigate } from 'react-router-dom';
 import { MapPin, Phone, Mail, Clock, Send, MessageSquare, User, Home, Instagram, Facebook, Twitter, Linkedin, AlertCircle, Loader } from 'lucide-react';
 import { useSEO } from '../hooks/useSEO';
@@ -291,10 +292,9 @@ const ContactPage = () => {
                     <Mail className="h-6 w-6 text-primary" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">Email Addresses</h4>
+                    <h4 className="font-semibold text-gray-900 mb-1">Email Address</h4>
                     <p className="text-gray-600">
-                      <a href="mailto:info@sadguruestate.com" className="hover:text-primary">info@sadguruestate.com</a><br />
-                      <a href="mailto:sales@sadguruestate.com" className="hover:text-primary">sales@sadguruestate.com</a>
+                      <a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-primary">{CONTACT_EMAIL}</a>
                     </p>
                   </div>
                 </div>

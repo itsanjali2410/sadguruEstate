@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { CONTACT_EMAIL } from '../lib/contact';
 import { Mail, Phone, MapPin, Instagram } from 'lucide-react';
 
 const Footer = () => {
@@ -19,7 +20,7 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-primary-light" />
-                <span>info@sadguruestate.com</span>
+                <a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-primary-light transition-colors">{CONTACT_EMAIL}</a>
               </div>
               <div className="flex items-start space-x-3">
                 <Phone className="h-5 w-5 text-primary-light mt-1" />
