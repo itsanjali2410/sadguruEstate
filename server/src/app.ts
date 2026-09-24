@@ -14,9 +14,11 @@ import revisionRoutes from './routes/revisions.js';
 
 export const app = express();
 
-// Behind Render's/Vercel's proxy: trust X-Forwarded-For so rate limiting
-// sees the real client IP, not the proxy's.
-app.set('trust proxy', 1);
+// Requests arrive via two proxies: Vercel (which rewrites the site's /api/*
+// to this server) and then Render's load balancer. Trust both hops so the
+// lead rate limiter keys on the real visitor IP rather than Vercel's egress
+// IP, which would otherwise make every visitor share one 5-per-15-min bucket.
+app.set('trust proxy', 2);
 
 // Served same-origin in production, so CORS only matters for the local
 // Vite dev server on :5173. An empty CORS_ORIGINS reflects any origin.

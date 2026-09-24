@@ -1,11 +1,11 @@
 import { Property } from '../types/property';
 
-// Base URL of the backend API (the Express server deployed on Render).
-// Overridable via VITE_API_URL so local dev can point at http://localhost:4000.
-// The default must be the deployed URL, never localhost: a localhost fallback
-// silently breaks the live site, since it resolves to the visitor's own machine.
-export const API_URL =
-  import.meta.env.VITE_API_URL || 'https://sadguruestate.onrender.com';
+// Default '' = same-origin. In production, /api/* is proxied to the Render
+// backend by a Vercel rewrite (see vercel.json), so the browser never makes a
+// cross-origin request and a CORS misconfiguration on the server can't blank
+// the site. Local dev sets VITE_API_URL=http://localhost:4000 to hit the
+// Express server directly.
+export const API_URL = import.meta.env.VITE_API_URL ?? '';
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${API_URL}${path}`, init);
